@@ -8,7 +8,7 @@
         "eskiFiyat": 74999,
         "puan": 4.8,
         "yorumSayisi": 128,
-        "gorsel": "https://via.placeholder.com/300x300/1a1a1a/00c853?text=S24+Ultra",
+        "gorsel": "images/samsungS24.jpg",
         "indirimli": true,
         "yeni": false,
         "ozellikler": {
@@ -29,7 +29,7 @@
         "eskiFiyat": null,
         "puan": 4.9,
         "yorumSayisi": 210,
-        "gorsel": "https://via.placeholder.com/300x300/1a1a1a/00c853?text=iPhone+15",
+        "gorsel": "images/iphone15ProMax.jpg",
         "indirimli": false,
         "yeni": true,
         "ozellikler": {
@@ -50,7 +50,7 @@
         "eskiFiyat": 14999,
         "puan": 4.5,
         "yorumSayisi": 340,
-        "gorsel": "https://via.placeholder.com/300x300/1a1a1a/00c853?text=Redmi+12",
+        "gorsel": "images/xiaomiRedmiNote12Pro.jpg",
         "indirimli": true,
         "yeni": false,
         "ozellikler": {
@@ -71,7 +71,7 @@
         "eskiFiyat": null,
         "puan": 4.9,
         "yorumSayisi": 95,
-        "gorsel": "https://via.placeholder.com/300x300/1a1a1a/00c853?text=MacBook+Pro",
+        "gorsel": "images/macBookProM3.jpg",
         "indirimli": false,
         "yeni": true,
         "ozellikler": {
@@ -92,7 +92,7 @@
         "eskiFiyat": 64999,
         "puan": 4.6,
         "yorumSayisi": 73,
-        "gorsel": "https://via.placeholder.com/300x300/1a1a1a/00c853?text=ROG+G14",
+        "gorsel": "images/asusROGZephyrusG14OLED.jpg",
         "indirimli": true,
         "yeni": false,
         "ozellikler": {
@@ -113,7 +113,7 @@
         "eskiFiyat": 16999,
         "puan": 4.3,
         "yorumSayisi": 560,
-        "gorsel": "https://via.placeholder.com/300x300/1a1a1a/00c853?text=Galaxy+A54",
+        "gorsel": "images/samsungGalaxyA54-5G.jpg",
         "indirimli": true,
         "yeni": false,
         "ozellikler": {
@@ -134,7 +134,7 @@
         "eskiFiyat": null,
         "puan": 4.2,
         "yorumSayisi": 88,
-        "gorsel": "https://via.placeholder.com/300x300/1a1a1a/00c853?text=Realme+11",
+        "gorsel": "images/realme11Pro-5G.jpg",
         "indirimli": false,
         "yeni": false,
         "ozellikler": {
@@ -155,7 +155,7 @@
         "eskiFiyat": 49999,
         "puan": 4.5,
         "yorumSayisi": 142,
-        "gorsel": "https://via.placeholder.com/300x300/1a1a1a/00c853?text=Pixel+8+Pro",
+        "gorsel": "images/googlePixel8Pro.jpg",
         "indirimli": true,
         "yeni": false,
         "ozellikler": {
@@ -165,6 +165,153 @@
             "Batarya": "5050 mAh",
             "Ekran": "6.7 inç LTPO OLED",
             "Kamera": "50 MP"
+        }
+    },
+    {
+        "id": 9,
+        "ad": "Lenovo ThinkPad X1 Carbon Gen 11",
+        "kategori": "Dizüstü Bilgisayar",
+        "marka": "Lenovo",
+        "fiyat": 54999,
+        "eskiFiyat": 59999,
+        "puan": 4.7,
+        "yorumSayisi": 112,
+        "gorsel": "images/lenovoThinkPadX1CarbonGen11.jpg",
+        "indirimli": true,
+        "yeni": false,
+        "ozellikler": {
+            "İşlemci": "Intel Core i7-1365U",
+            "RAM": "16 GB LPDDR5",
+            "Depolama": "512 GB SSD",
+            "Batarya": "57 Wh",
+            "Ekran": "14 inç IPS 2.8K",
+            "GPU": "Intel Iris Xe"
+        }
+    },
+    {
+        "id": 10,
+        "ad": "Dell XPS 15 OLED",
+        "kategori": "Dizüstü Bilgisayar",
+        "marka": "Dell",
+        "fiyat": 67499,
+        "eskiFiyat": null,
+        "puan": 4.6,
+        "yorumSayisi": 89,
+        "gorsel": "images/dellXPS15OLED.jpg",
+        "indirimli": false,
+        "yeni": true,
+        "ozellikler": {
+            "İşlemci": "Intel Core i9-13900H",
+            "RAM": "32 GB DDR5",
+            "Depolama": "1 TB SSD",
+            "Batarya": "86 Wh",
+            "Ekran": "15.6 inç OLED 3.5K",
+            "GPU": "RTX 4070"
+        }
+    },
+    {
+        "id": 11,
+        "ad": "HP Spectre x360 14",
+        "kategori": "Dizüstü Bilgisayar",
+        "marka": "HP",
+        "fiyat": 48999,
+        "eskiFiyat": 53999,
+        "puan": 4.4,
+        "yorumSayisi": 67,
+        "gorsel": "images/hpSpectrex36014.jpg",
+        "indirimli": true,
+        "yeni": false,
+        "ozellikler": {
+            "İşlemci": "Intel Core i7-1355U",
+            "RAM": "16 GB LPDDR4x",
+            "Depolama": "512 GB SSD",
+            "Batarya": "66 Wh",
+            "Ekran": "13.5 inç OLED Dokunmatik",
+            "GPU": "Intel Iris Xe"
+        }
+    },
+    {
+        "id": 12,
+        "ad": "Microsoft Surface Laptop 5",
+        "kategori": "Dizüstü Bilgisayar",
+        "marka": "Microsoft",
+        "fiyat": 42999,
+        "eskiFiyat": null,
+        "puan": 4.3,
+        "yorumSayisi": 54,
+        "gorsel": "images/microsoftSurfaceLaptop5.jpg",
+        "indirimli": false,
+        "yeni": false,
+        "ozellikler": {
+            "İşlemci": "Intel Core i5-1235U",
+            "RAM": "8 GB LPDDR5",
+            "Depolama": "256 GB SSD",
+            "Batarya": "47.4 Wh",
+            "Ekran": "13.5 inç PixelSense",
+            "GPU": "Intel Iris Xe"
+        }
+    },
+    {
+        "id": 13,
+        "ad": "Sony WH-1000XM5",
+        "kategori": "Kulaklık",
+        "marka": "Sony",
+        "fiyat": 11999,
+        "eskiFiyat": 13999,
+        "puan": 4.9,
+        "yorumSayisi": 890,
+        "gorsel": "images/sonyWH-1000XM5.jpg",
+        "indirimli": true,
+        "yeni": false,
+        "ozellikler": {
+            "Tip": "Kulak Üstü",
+            "Bağlantı": "Bluetooth 5.2",
+            "Batarya": "30 saat",
+            "Gürültü Engelleme": "Aktif (ANC)",
+            "Sürücü": "30 mm",
+            "Mikrofon": "8 adet"
+        }
+    },
+    {
+        "id": 14,
+        "ad": "Apple AirPods Pro 2. Nesil",
+        "kategori": "Kulaklık",
+        "marka": "Apple",
+        "fiyat": 9499,
+        "eskiFiyat": 10999,
+        "puan": 4.8,
+        "yorumSayisi": 1240,
+        "gorsel": "images/appleAirPodsPro2.Nesil.jpg",
+        "indirimli": true,
+        "yeni": false,
+        "ozellikler": {
+            "Tip": "Kulak İçi (TWS)",
+            "Bağlantı": "Bluetooth 5.3",
+            "Batarya": "6 saat (30 saat kılıfla)",
+            "Gürültü Engelleme": "Aktif (ANC)",
+            "Sürücü": "11 mm",
+            "Mikrofon": "3 adet"
+        }
+    },
+    {
+        "id": 15,
+        "ad": "Samsung Galaxy Buds2 Pro",
+        "kategori": "Kulaklık",
+        "marka": "Samsung",
+        "fiyat": 4999,
+        "eskiFiyat": 6499,
+        "puan": 4.4,
+        "yorumSayisi": 432,
+        "gorsel": "images/samsungGalaxyBuds2Pro.jpg",
+        "indirimli": true,
+        "yeni": false,
+        "ozellikler": {
+            "Tip": "Kulak İçi (TWS)",
+            "Bağlantı": "Bluetooth 5.3",
+            "Batarya": "5 saat (18 saat kılıfla)",
+            "Gürültü Engelleme": "Aktif (ANC)",
+            "Sürücü": "10 mm",
+            "Mikrofon": "3 adet"
         }
     }
 ]
