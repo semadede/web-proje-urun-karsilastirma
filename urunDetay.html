@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html class="dark" lang="tr">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>KarşılaştırMax - Ürün Detay</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "background": "#0d150d", "surface": "#0d150d",
+                        "surface-container-lowest": "#081008", "surface-container-low": "#151e15",
+                        "surface-container": "#192219", "surface-container-high": "#242c23",
+                        "surface-container-highest": "#2e372e", "surface-variant": "#2e372e",
+                        "surface-tint": "#3ce36a", "on-surface": "#dce5d7", "on-surface-variant": "#bbcbb8",
+                        "primary": "#3fe56c", "primary-container": "#00c853",
+                        "primary-fixed": "#69ff87", "on-primary": "#003912", "on-primary-container": "#004c1b",
+                        "outline": "#869583", "outline-variant": "#3c4a3c",
+                        "error": "#ffb4ab", "on-error": "#690005",
+                    },
+                    borderRadius: { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" },
+                    spacing: { "base": "4px", "gutter": "20px", "xl": "40px", "lg": "24px", "md": "16px", "sm": "8px", "xs": "4px" },
+                    fontFamily: { "sans": ["Inter"] },
+                    fontSize: {
+                        "label-lg": ["14px", { lineHeight: "16px", letterSpacing: "0.05em", fontWeight: "600" }],
+                        "headline-md": ["20px", { lineHeight: "28px", fontWeight: "600" }],
+                        "headline-lg": ["28px", { lineHeight: "36px", fontWeight: "700" }],
+                        "body-sm": ["14px", { lineHeight: "20px", fontWeight: "400" }],
+                        "label-md": ["12px", { lineHeight: "14px", fontWeight: "500" }],
+                        "body-md": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+                        "display-md": ["36px", { lineHeight: "44px", letterSpacing: "-0.01em", fontWeight: "700" }],
+                        "body-lg": ["18px", { lineHeight: "28px", fontWeight: "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0d150d;
+            color: #dce5d7;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+
+<body class="bg-background text-on-background min-h-screen flex flex-col">
+
+    <!-- ===== NAVİGASYON ===== -->
+    <nav class="bg-background/85 backdrop-blur-md top-0 sticky z-50 border-b border-outline-variant">
+        <div class="flex justify-between items-center h-16 px-xl max-w-[1280px] mx-auto">
+            <a href="index.html" class="flex items-center gap-md">
+                <span class="material-symbols-outlined text-primary text-3xl"
+                    style="font-variation-settings:'FILL' 1;">stacked_bar_chart</span>
+                <span class="text-headline-lg text-primary tracking-tight">KarşılaştırMax</span>
+            </a>
+            <div class="hidden md:flex items-center gap-lg">
+                <a href="index.html"
+                    class="text-on-surface-variant hover:text-on-surface transition-colors text-label-lg px-sm py-xs rounded">Ana
+                    Sayfa</a>
+                <a href="urunler.html" class="text-primary border-b-2 border-primary pb-base text-label-lg">Ürünler</a>
+                <a href="karsilastirma.html"
+                    class="text-on-surface-variant hover:text-on-surface transition-colors text-label-lg px-sm py-xs rounded">Karşılaştır</a>
+                <a href="favoriler.html"
+                    class="text-on-surface-variant hover:text-on-surface transition-colors text-label-lg px-sm py-xs rounded">Favoriler</a>
+            </div>
+            <div class="flex items-center gap-sm">
+                <button onclick="location.href='karsilastirma.html'"
+                    class="p-sm text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-variant/50 rounded-lg relative">
+                    <span class="material-symbols-outlined">compare_arrows</span>
+                    <span id="navKarsilastirmaSayisi"
+                        class="absolute -top-1 -right-1 bg-primary text-on-primary text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center hidden">0</span>
+                </button>
+                <button onclick="location.href='favoriler.html'"
+                    class="p-sm text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-variant/50 rounded-lg relative">
+                    <span class="material-symbols-outlined">favorite</span>
+                    <span id="navFavoriSayisi"
+                        class="absolute -top-1 -right-1 bg-primary text-on-primary text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center hidden">0</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ===== ANA İÇERİK ===== -->
+    <main class="flex-1 w-full max-w-[1280px] mx-auto px-md md:px-xl py-xl">
+
+        <!-- Ekmek kırıntısı (breadcrumb) navigasyonu -->
+        <nav class="flex text-body-sm text-on-surface-variant mb-lg">
+            <a href="index.html" class="hover:text-primary transition-colors">Ana Sayfa</a>
+            <span class="mx-sm">/</span>
+            <a href="urunler.html" class="hover:text-primary transition-colors">Ürünler</a>
+            <span class="mx-sm">/</span>
+            <span id="breadcrumbAd" class="text-on-surface">Yükleniyor...</span>
+        </nav>
+
+        <!-- ===== ÜRÜN BULUNAMADI EKRANI ===== -->
+        <div id="bulunamadi" class="hidden flex-col items-center justify-center py-20 text-center">
+            <span class="material-symbols-outlined text-6xl text-outline mb-md">error</span>
+            <h3 class="text-headline-lg text-on-surface mb-sm">Ürün bulunamadı</h3>
+            <button onclick="location.href='urunler.html'"
+                class="bg-primary text-on-primary px-xl py-md rounded-lg text-label-lg font-bold hover:bg-primary-fixed transition-colors mt-lg">
+                Ürünlere Dön
+            </button>
+        </div>
+
+        <!-- ===== ÜRÜN DETAY İÇERİĞİ ===== -->
+        <div id="detayIcerik" class="hidden">
+
+            <!-- Üst bölüm: Görsel (sol) + Bilgiler (sağ) -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter mb-xl">
+
+                <!-- SOL: Ürün görseli -->
+                <div class="lg:col-span-7">
+                    <div
+                        class="bg-surface-container-high rounded-xl border border-outline-variant p-lg flex items-center justify-center aspect-square overflow-hidden group">
+                        <img id="urunGorsel" src="" alt=""
+                            class="max-w-full max-h-full object-contain transition-transform duration-300 group-hover:scale-105" />
+                    </div>
+                </div>
+
+                <!-- SAĞ: Ürün bilgileri -->
+                <div class="lg:col-span-5 flex flex-col gap-lg">
+
+                    <!-- Başlık ve fiyat -->
+                    <div>
+                        <div class="flex items-center gap-sm mb-sm">
+                            <span id="yeniRozeti"
+                                class="hidden bg-primary/20 text-primary px-sm py-xs rounded text-label-md uppercase tracking-wide">YENİ</span>
+                            <span id="markaEtiketi" class="text-on-surface-variant text-body-sm"></span>
+                        </div>
+                        <h1 id="urunAdi" class="text-display-md text-on-surface mb-md"></h1>
+                        <div class="flex items-end justify-between border-b border-outline-variant pb-md">
+                            <div>
+                                <span id="eskiFiyatEl"
+                                    class="text-on-surface-variant line-through text-body-sm hidden"></span>
+                                <div id="fiyatEl" class="text-primary text-display-md font-bold"></div>
+                            </div>
+                            <div class="flex items-center gap-xs text-on-surface-variant text-body-sm">
+                                <span class="text-primary">★</span>
+                                <span id="puanEl" class="font-bold text-on-surface"></span>
+                                <span id="yorumSayisiEl"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PUAN DAĞILIMI BAR CHART (CSS ile) -->
+                    <div class="bg-surface-container-high p-md rounded-lg border border-outline-variant">
+                        <h3 class="text-label-lg text-on-surface mb-sm">Değerlendirme Özeti</h3>
+                        <!-- Örnek puan dağılımı (gerçekte veritabanından gelir) -->
+                        <div class="space-y-sm" id="puanDagilimi">
+                            <!-- JS ile doldurulur -->
+                        </div>
+                    </div>
+
+                    <!-- TEKNİK ÖZELLİKLER LİSTESİ -->
+                    <div class="bg-surface-container-high p-md rounded-lg border border-outline-variant">
+                        <h3 class="text-label-lg text-on-surface mb-sm">Teknik Özellikler</h3>
+                        <ul id="ozelliklerListesi" class="space-y-sm text-body-md text-on-surface-variant">
+                            <!-- JS ile doldurulur -->
+                        </ul>
+                    </div>
+
+                    <!-- AKSİYON BUTONLARI -->
+                    <div class="flex flex-col sm:flex-row gap-md mt-auto">
+                        <!-- Karşılaştırmaya Ekle butonu -->
+                        <button id="karsilastirmaBtn" onclick="karsilastirmaToggle()"
+                            class="flex-1 bg-primary text-on-primary text-label-lg py-3 px-md rounded-lg flex items-center justify-center gap-sm hover:bg-primary-fixed transition-all">
+                            <span class="material-symbols-outlined">compare_arrows</span>
+                            Karşılaştırmaya Ekle
+                        </button>
+                        <!-- Favoriye Ekle butonu -->
+                        <button id="favoriBtn" onclick="favoriToggle()"
+                            class="flex-1 bg-transparent border border-primary text-primary text-label-lg py-3 px-md rounded-lg flex items-center justify-center gap-sm hover:bg-primary/10 transition-all">
+                            <span class="material-symbols-outlined">favorite_border</span>
+                            Favoriye Ekle
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BENZERİ ÜRÜNLER BÖLÜMÜ -->
+            <section class="mt-xl pt-xl border-t border-outline-variant">
+                <h2 class="text-headline-lg text-on-surface mb-lg">Benzer Ürünler</h2>
+                <div id="benzerUrunler" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-md">
+                    <!-- JS ile doldurulur -->
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="bg-surface-container-lowest border-t border-outline-variant mt-xl">
+        <div class="flex flex-col md:flex-row justify-between items-center py-lg px-xl max-w-[1280px] mx-auto gap-md">
+            <div class="flex items-center gap-sm">
+                <span class="material-symbols-outlined text-primary text-2xl"
+                    style="font-variation-settings:'FILL' 1;">stacked_bar_chart</span>
+                <span class="text-headline-md text-primary">KarşılaştırMax</span>
+            </div>
+            <div class="flex flex-wrap justify-center gap-md text-body-sm">
+                <a href="#" class="text-on-surface-variant hover:text-primary transition-colors">Hakkımızda</a>
+                <a href="#" class="text-on-surface-variant hover:text-primary transition-colors">Gizlilik Politikası</a>
+                <a href="#" class="text-on-surface-variant hover:text-primary transition-colors">İletişim</a>
+            </div>
+            <div class="text-body-sm text-on-surface-variant">© 2024 KarşılaştırMax</div>
+        </div>
+    </footer>
+
+    <script>
+        /* =====================================================
+           YARDIMCI FONKSİYONLAR
+           ===================================================== */
+        function karsilastirmaListesiAl() { return JSON.parse(localStorage.getItem('karsilastirmaListesi') || '[]'); }
+        function karsilastirmaListesiKaydet(liste) { localStorage.setItem('karsilastirmaListesi', JSON.stringify(liste)); }
+        function favoriListesiAl() { return JSON.parse(localStorage.getItem('favoriListesi') || '[]'); }
+        function favoriListesiKaydet(liste) { localStorage.setItem('favoriListesi', JSON.stringify(liste)); }
+        function fiyatFormat(fiyat) { return fiyat.toLocaleString('tr-TR') + ' TL'; }
+
+        let mevcutUrun = null; /* Şu an gösterilen ürün */
+        let tumUrunler = [];
+
+        /* =====================================================
+           BUTON DURUMLARINI GÜNCELLE
+           Ürün karşılaştırmada/favoride mi değil mi kontrolü
+           ===================================================== */
+        function butonlariGuncelle() {
+            if (!mevcutUrun) return;
+
+            const karsilastirmada = karsilastirmaListesiAl().some(u => u.id === mevcutUrun.id);
+            const favoride = favoriListesiAl().some(u => u.id === mevcutUrun.id);
+
+            const karsilastirmaBtn = document.getElementById('karsilastirmaBtn');
+            const favoriBtn = document.getElementById('favoriBtn');
+
+            /* Karşılaştırma butonu: eklendiyse farklı stil */
+            if (karsilastirmada) {
+                karsilastirmaBtn.className = 'flex-1 bg-primary/20 border border-primary text-primary text-label-lg py-3 px-md rounded-lg flex items-center justify-center gap-sm hover:bg-primary/30 transition-all';
+                karsilastirmaBtn.innerHTML = '<span class="material-symbols-outlined">check</span> Karşılaştırmada';
+            } else {
+                karsilastirmaBtn.className = 'flex-1 bg-primary text-on-primary text-label-lg py-3 px-md rounded-lg flex items-center justify-center gap-sm hover:bg-primary-fixed transition-all';
+                karsilastirmaBtn.innerHTML = '<span class="material-symbols-outlined">compare_arrows</span> Karşılaştırmaya Ekle';
+            }
+
+            /* Favori butonu: eklendiyse dolu kalp ikonu */
+            if (favoride) {
+                favoriBtn.className = 'flex-1 bg-primary/10 border border-primary text-primary text-label-lg py-3 px-md rounded-lg flex items-center justify-center gap-sm hover:bg-primary/20 transition-all';
+                favoriBtn.innerHTML = '<span class="material-symbols-outlined" style="font-variation-settings:\'FILL\' 1;">favorite</span> Favorilerimde';
+            } else {
+                favoriBtn.className = 'flex-1 bg-transparent border border-primary text-primary text-label-lg py-3 px-md rounded-lg flex items-center justify-center gap-sm hover:bg-primary/10 transition-all';
+                favoriBtn.innerHTML = '<span class="material-symbols-outlined">favorite_border</span> Favoriye Ekle';
+            }
+
+            /* Navigasyon rozetleri */
+            const navK = document.getElementById('navKarsilastirmaSayisi');
+            const navF = document.getElementById('navFavoriSayisi');
+            const ks = karsilastirmaListesiAl().length;
+            const fs = favoriListesiAl().length;
+            if (navK) { navK.textContent = ks; ks > 0 ? navK.classList.remove('hidden') : navK.classList.add('hidden'); }
+            if (navF) { navF.textContent = fs; fs > 0 ? navF.classList.remove('hidden') : navF.classList.add('hidden'); }
+        }
+
+        /* ===== KARŞILAŞTIRMA TOGGLE ===== */
+        function karsilastirmaToggle() {
+            let liste = karsilastirmaListesiAl();
+            const index = liste.findIndex(u => u.id === mevcutUrun.id);
+            if (index !== -1) {
+                liste.splice(index, 1);
+            } else {
+                if (liste.length >= 3) { alert('En fazla 3 ürün karşılaştırabilirsiniz!'); return; }
+                liste.push(mevcutUrun);
+            }
+            karsilastirmaListesiKaydet(liste);
+            butonlariGuncelle();
+        }
+
+        /* ===== FAVORİ TOGGLE ===== */
+        function favoriToggle() {
+            let liste = favoriListesiAl();
+            const index = liste.findIndex(u => u.id === mevcutUrun.id);
+            if (index !== -1) liste.splice(index, 1);
+            else liste.push(mevcutUrun);
+            favoriListesiKaydet(liste);
+            butonlariGuncelle();
+        }
+
+        /* =====================================================
+           PUAN DAĞILIMI ÇUBUKLARINI OLUŞTUR (CSS bar chart)
+           ===================================================== */
+        function puanDagilimOlustur(toplamPuan) {
+            /* Örnek dağılım yüzdeleri (gerçek projede hesaplanır) */
+            const dagılım = [
+                { yildiz: 5, yuzde: 65 },
+                { yildiz: 4, yuzde: 20 },
+                { yildiz: 3, yuzde: 8 },
+                { yildiz: 2, yuzde: 4 },
+                { yildiz: 1, yuzde: 3 },
+            ];
+
+            return dagılım.map(item => `
+        <div class="flex items-center text-body-sm text-on-surface-variant">
+          <div class="w-14 flex items-center gap-xs">${item.yildiz} <span class="text-primary text-xs">★</span></div>
+          <!-- Renkli dolum çubuğu: genişliği yüzde ile ayarlanır -->
+          <div class="flex-grow bg-surface rounded-full h-2 mx-sm overflow-hidden">
+            <div class="bg-surface-tint h-full rounded-full transition-all duration-500" style="width: ${item.yuzde}%"></div>
+          </div>
+          <div class="w-8 text-right">${item.yuzde}%</div>
+        </div>`).join('');
+        }
+
+        /* =====================================================
+           ÜRÜNÜ SAYFADA GÖSTER
+           ===================================================== */
+        function urunuGoster(urun) {
+            mevcutUrun = urun;
+
+            /* Breadcrumb güncelle */
+            document.getElementById('breadcrumbAd').textContent = urun.ad;
+            document.title = urun.ad + ' - KarşılaştırMax';
+
+            /* Görsel */
+            document.getElementById('urunGorsel').src = urun.gorsel;
+            document.getElementById('urunGorsel').alt = urun.ad;
+
+            /* Yeni rozeti */
+            if (urun.yeni) document.getElementById('yeniRozeti').classList.remove('hidden');
+
+            /* Marka */
+            document.getElementById('markaEtiketi').textContent = urun.marka + ' · ' + urun.kategori;
+
+            /* Ad */
+            document.getElementById('urunAdi').textContent = urun.ad;
+
+            /* Fiyat */
+            document.getElementById('fiyatEl').textContent = fiyatFormat(urun.fiyat);
+            if (urun.eskiFiyat) {
+                const eskiFiyatEl = document.getElementById('eskiFiyatEl');
+                eskiFiyatEl.textContent = fiyatFormat(urun.eskiFiyat);
+                eskiFiyatEl.classList.remove('hidden');
+            }
+
+            /* Puan ve yorum sayısı */
+            document.getElementById('puanEl').textContent = urun.puan;
+            document.getElementById('yorumSayisiEl').textContent = `(${urun.yorumSayisi} değerlendirme)`;
+
+            /* Puan dağılımı */
+            document.getElementById('puanDagilimi').innerHTML = puanDagilimOlustur(urun.puan);
+
+            /* Teknik özellikler: key-value listesi */
+            document.getElementById('ozelliklerListesi').innerHTML = Object.entries(urun.ozellikler).map(([key, val]) => `
+        <li class="flex justify-between border-b border-outline-variant/50 pb-sm">
+          <span>${key}</span>
+          <span class="text-on-surface font-medium">${val}</span>
+        </li>`).join('');
+
+            /* Benzer ürünler: aynı kategoriden diğerleri */
+            const benzer = tumUrunler.filter(u => u.kategori === urun.kategori && u.id !== urun.id).slice(0, 4);
+            document.getElementById('benzerUrunler').innerHTML = benzer.map(b => `
+        <div class="bg-surface-container-high border border-outline-variant rounded-xl p-md flex flex-col group hover:scale-[1.02] hover:border-outline transition-all cursor-pointer" onclick="location.href='urun-detay.html?id=${b.id}'">
+          <div class="aspect-square bg-surface-container-lowest rounded-lg mb-md flex items-center justify-center p-md">
+            <img src="${b.gorsel}" alt="${b.ad}" class="max-h-full object-contain"/>
+          </div>
+          <h4 class="text-headline-md text-on-surface mb-sm line-clamp-2">${b.ad}</h4>
+          <div class="flex items-center gap-xs text-on-surface-variant text-body-sm mb-sm">
+            <span class="text-primary">★</span>
+            <span class="font-bold text-on-surface">${b.puan}</span>
+          </div>
+          <div class="text-primary text-headline-md font-bold">${fiyatFormat(b.fiyat)}</div>
+        </div>`).join('');
+
+            /* Sayfayı göster */
+            document.getElementById('detayIcerik').classList.remove('hidden');
+            document.getElementById('detayIcerik').classList.add('block');
+
+            /* Buton durumlarını güncelle */
+            butonlariGuncelle();
+        }
+
+        /* =====================================================
+           SAYFA BAŞLANGICI
+           URL'den id parametresini al, o ürünü göster
+           ===================================================== */
+        document.addEventListener('DOMContentLoaded', function () {
+            /* URL'den ürün ID'sini oku: urun-detay.html?id=1 */
+            const urlParams = new URLSearchParams(window.location.search);
+            const urunId = parseInt(urlParams.get('id'));
+
+            fetch('data.json')
+                .then(res => res.json())
+                .then(urunler => {
+                    tumUrunler = urunler;
+                    const urun = urunler.find(u => u.id === urunId);
+
+                    if (urun) {
+                        urunuGoster(urun);
+                    } else {
+                        /* ID geçersizse bulunamadı ekranını göster */
+                        document.getElementById('bulunamadi').classList.remove('hidden');
+                        document.getElementById('bulunamadi').classList.add('flex');
+                    }
+                })
+                .catch(hata => console.error('Veri yüklenemedi:', hata));
+        });
+    </script>
+</body>
+
+</html>
