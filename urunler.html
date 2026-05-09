@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html class="dark" lang="tr">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>KarşılaştırMax - Ürünler</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "background": "#0d150d", "surface": "#0d150d",
+                        "surface-container-lowest": "#081008", "surface-container-low": "#151e15",
+                        "surface-container": "#192219", "surface-container-high": "#242c23",
+                        "surface-container-highest": "#2e372e", "surface-variant": "#2e372e",
+                        "surface-bright": "#333b32", "surface-tint": "#3ce36a",
+                        "on-surface": "#dce5d7", "on-surface-variant": "#bbcbb8",
+                        "on-background": "#dce5d7",
+                        "primary": "#3fe56c", "primary-container": "#00c853",
+                        "primary-fixed": "#69ff87", "primary-fixed-dim": "#3ce36a",
+                        "on-primary": "#003912", "on-primary-container": "#004c1b",
+                        "secondary": "#c8c6c5", "secondary-container": "#474746",
+                        "on-secondary": "#303030", "on-secondary-container": "#b7b5b4",
+                        "tertiary": "#cbc8c8", "tertiary-container": "#afadad",
+                        "tertiary-fixed-dim": "#c8c6c5", "on-tertiary": "#303030",
+                        "on-tertiary-container": "#414141",
+                        "outline": "#869583", "outline-variant": "#3c4a3c",
+                        "error": "#ffb4ab", "error-container": "#93000a",
+                        "on-error": "#690005", "on-error-container": "#ffdad6",
+                        "inverse-primary": "#006e2a", "inverse-surface": "#dce5d7",
+                        "inverse-on-surface": "#2a3329",
+                    },
+                    borderRadius: { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" },
+                    spacing: { "base": "4px", "gutter": "20px", "xl": "40px", "lg": "24px", "md": "16px", "sm": "8px", "container-max": "1280px", "xs": "4px" },
+                    fontFamily: { "sans": ["Inter"] },
+                    fontSize: {
+                        "label-lg": ["14px", { lineHeight: "16px", letterSpacing: "0.05em", fontWeight: "600" }],
+                        "headline-md": ["20px", { lineHeight: "28px", fontWeight: "600" }],
+                        "headline-lg": ["28px", { lineHeight: "36px", fontWeight: "700" }],
+                        "body-sm": ["14px", { lineHeight: "20px", fontWeight: "400" }],
+                        "label-md": ["12px", { lineHeight: "14px", fontWeight: "500" }],
+                        "body-md": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+                        "display-md": ["36px", { lineHeight: "44px", letterSpacing: "-0.01em", fontWeight: "700" }],
+                        "body-lg": ["18px", { lineHeight: "28px", fontWeight: "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0d150d;
+            color: #dce5d7;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        /* Özel scrollbar rengi */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0d150d;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #2e372e;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body class="bg-background text-on-background min-h-screen flex flex-col">
+
+    <!-- ===== NAVİGASYON ===== -->
+    <nav class="bg-background/85 backdrop-blur-md top-0 sticky z-50 border-b border-outline-variant">
+        <div class="flex justify-between items-center h-16 px-xl max-w-[1280px] mx-auto">
+            <a href="index.html" class="flex items-center gap-md">
+                <span class="material-symbols-outlined text-primary text-3xl"
+                    style="font-variation-settings:'FILL' 1;">stacked_bar_chart</span>
+                <span class="text-headline-lg text-primary tracking-tight">KarşılaştırMax</span>
+            </a>
+            <!-- Arama kutusu -->
+            <div class="hidden md:flex flex-1 max-w-xl mx-lg relative">
+                <span
+                    class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+                <input id="navArama"
+                    class="w-full bg-surface-container-high border border-outline-variant rounded-lg pl-xl pr-md py-sm text-on-surface focus:ring-primary focus:border-primary text-body-sm h-12"
+                    placeholder="Ürün ara..." type="text" />
+            </div>
+            <div class="hidden md:flex items-center gap-lg">
+                <a href="index.html"
+                    class="text-on-surface-variant hover:text-on-surface transition-colors text-label-lg px-sm py-xs rounded">Ana
+                    Sayfa</a>
+                <a href="urunler.html" class="text-primary border-b-2 border-primary pb-base text-label-lg">Ürünler</a>
+                <a href="karsilastirma.html"
+                    class="text-on-surface-variant hover:text-on-surface transition-colors text-label-lg px-sm py-xs rounded">Karşılaştır</a>
+                <a href="favoriler.html"
+                    class="text-on-surface-variant hover:text-on-surface transition-colors text-label-lg px-sm py-xs rounded">Favoriler</a>
+            </div>
+            <div class="flex items-center gap-sm ml-md">
+                <button onclick="location.href='karsilastirma.html'"
+                    class="p-sm text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-variant/50 rounded-lg relative">
+                    <span class="material-symbols-outlined">compare_arrows</span>
+                    <span id="navKarsilastirmaSayisi"
+                        class="absolute -top-1 -right-1 bg-primary text-on-primary text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center hidden">0</span>
+                </button>
+                <button onclick="location.href='favoriler.html'"
+                    class="p-sm text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-variant/50 rounded-lg relative">
+                    <span class="material-symbols-outlined">favorite</span>
+                    <span id="navFavoriSayisi"
+                        class="absolute -top-1 -right-1 bg-primary text-on-primary text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center hidden">0</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ===== ANA İÇERİK: Sol filtre + Sağ ürün listesi ===== -->
+    <main
+        class="flex-1 max-w-[1280px] mx-auto w-full px-md md:px-xl py-xl grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start pb-32">
+
+        <!-- ===== FİLTRE PANELİ (Sol sidebar) ===== -->
+        <aside
+            class="hidden lg:block lg:col-span-3 bg-surface-container border border-outline-variant rounded-xl p-lg sticky top-[88px]">
+
+            <!-- Filtre başlığı ve aktif filtre sayısı -->
+            <div class="flex items-center justify-between mb-lg border-b border-outline-variant pb-md">
+                <h2 class="text-headline-md text-on-surface">Filtreler</h2>
+                <span id="aktifFiltreSayisi"
+                    class="bg-primary/20 text-primary px-sm py-xs rounded text-label-md hidden">0 Aktif</span>
+            </div>
+
+            <!-- KATEGORİ FİLTRESİ -->
+            <div class="mb-lg">
+                <h3 class="text-label-lg text-on-surface mb-md">Kategoriler</h3>
+                <div id="kategoriFiltreler" class="space-y-sm">
+                    <!-- JS tarafından doldurulur -->
+                </div>
+            </div>
+
+            <!-- FİYAT ARALIĞI FİLTRESİ -->
+            <div class="mb-lg border-t border-outline-variant pt-md">
+                <h3 class="text-label-lg text-on-surface mb-md">Fiyat Aralığı</h3>
+                <div class="flex gap-sm">
+                    <!-- Min fiyat girişi -->
+                    <div class="flex-1">
+                        <label class="text-label-md text-on-surface-variant mb-xs block">Min (TL)</label>
+                        <input id="minFiyat" type="number" value="0" min="0"
+                            class="w-full bg-surface border border-outline-variant rounded p-sm text-body-sm text-on-surface focus:border-primary focus:ring-1 focus:ring-primary h-9" />
+                    </div>
+                    <!-- Max fiyat girişi -->
+                    <div class="flex-1">
+                        <label class="text-label-md text-on-surface-variant mb-xs block">Max (TL)</label>
+                        <input id="maxFiyat" type="number" value="999999" min="0"
+                            class="w-full bg-surface border border-outline-variant rounded p-sm text-body-sm text-on-surface focus:border-primary focus:ring-1 focus:ring-primary h-9" />
+                    </div>
+                </div>
+                <button onclick="filtreleriUygula()"
+                    class="mt-sm w-full bg-primary/10 border border-primary text-primary py-sm rounded text-label-lg hover:bg-primary/20 transition-colors">Uygula</button>
+            </div>
+
+            <!-- MİNİMUM PUAN FİLTRESİ -->
+            <div class="mb-lg border-t border-outline-variant pt-md">
+                <h3 class="text-label-lg text-on-surface mb-md">Minimum Puan</h3>
+                <div class="space-y-sm">
+                    <!-- Her puan seçeneği için radio buton -->
+                    <label class="flex items-center gap-sm cursor-pointer group">
+                        <input type="radio" name="minPuan" value="0" checked
+                            class="text-primary focus:ring-primary bg-surface border-outline-variant" />
+                        <span
+                            class="text-body-sm text-on-surface-variant group-hover:text-on-surface transition-colors">Tümü</span>
+                    </label>
+                    <label class="flex items-center gap-sm cursor-pointer group">
+                        <input type="radio" name="minPuan" value="4"
+                            class="text-primary focus:ring-primary bg-surface border-outline-variant" />
+                        <span class="text-primary">★★★★</span>
+                        <span class="text-body-sm text-on-surface-variant">& Üzeri (4.0+)</span>
+                    </label>
+                    <label class="flex items-center gap-sm cursor-pointer group">
+                        <input type="radio" name="minPuan" value="4.5"
+                            class="text-primary focus:ring-primary bg-surface border-outline-variant" />
+                        <span class="text-primary">★★★★★</span>
+                        <span class="text-body-sm text-on-surface-variant">& Üzeri (4.5+)</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- MARKA FİLTRESİ -->
+            <div class="border-t border-outline-variant pt-md">
+                <h3 class="text-label-lg text-on-surface mb-md">Markalar</h3>
+                <div id="markaFiltreler" class="space-y-sm max-h-40 overflow-y-auto pr-sm">
+                    <!-- JS tarafından doldurulur -->
+                </div>
+            </div>
+
+            <!-- Filtreleri Temizle butonu -->
+            <button onclick="filtreleriTemizle()"
+                class="w-full mt-lg bg-surface-variant text-on-surface-variant border border-outline-variant py-sm rounded-lg hover:bg-surface-bright transition-colors text-label-lg">
+                Tümünü Temizle
+            </button>
+        </aside>
+
+        <!-- ===== ÜRÜN LİSTESİ ALANI ===== -->
+        <section class="col-span-1 lg:col-span-9 flex flex-col gap-md">
+
+            <!-- Sıralama ve başlık çubuğu -->
+            <div
+                class="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-surface-container border border-outline-variant rounded-xl p-md gap-md">
+                <div>
+                    <h1 class="text-headline-lg text-on-surface">Ürünler</h1>
+                    <!-- Kaç ürün gösterildiği bilgisi -->
+                    <p id="urunSayisiMetni" class="text-body-sm text-on-surface-variant">Yükleniyor...</p>
+                </div>
+                <!-- Sıralama butonları -->
+                <div class="flex items-center gap-sm">
+                    <span class="text-body-sm text-on-surface-variant hidden sm:inline">Sırala:</span>
+                    <div class="flex bg-surface border border-outline-variant rounded-lg p-xs">
+                        <!-- Her butona onclick="sirala('...')" şeklinde sıralama tipi verilir -->
+                        <button id="btn-onerildi" onclick="sirala('onerildi')"
+                            class="px-md py-xs rounded bg-surface-variant text-on-surface text-label-md transition-colors">Önerilen</button>
+                        <button id="btn-fiyatArtan" onclick="sirala('fiyatArtan')"
+                            class="px-md py-xs rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-variant/50 text-label-md transition-colors">Fiyat
+                            ↑</button>
+                        <button id="btn-fiyatAzalan" onclick="sirala('fiyatAzalan')"
+                            class="px-md py-xs rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-variant/50 text-label-md transition-colors">Fiyat
+                            ↓</button>
+                        <button id="btn-puan" onclick="sirala('puan')"
+                            class="px-md py-xs rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-variant/50 text-label-md transition-colors">Puan</button>
+                        <button id="btn-yorumSayisi" onclick="sirala('yorumSayisi')"
+                            class="px-md py-xs rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-variant/50 text-label-md transition-colors">Çok
+                            Yorum</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ürün kartları grid'i: JS dolduracak -->
+            <div id="urunListesi" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-lg">
+                <div class="col-span-3 text-center text-on-surface-variant py-xl">Ürünler yükleniyor...</div>
+            </div>
+
+            <!-- Ürün bulunamadı mesajı (başlangıçta gizli) -->
+            <div id="bulunamadi"
+                class="hidden flex-col items-center justify-center py-20 text-center bg-surface-container rounded-xl border border-outline-variant">
+                <span class="material-symbols-outlined text-6xl text-outline mb-md">search_off</span>
+                <h3 class="text-headline-lg text-on-surface mb-sm">Ürün bulunamadı</h3>
+                <p class="text-body-md text-on-surface-variant max-w-md">Filtrelerinizi değiştirerek tekrar deneyin.</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- ===== KARŞILAŞTIRMA TEPSİSİ (STICKY ALT ÇUBUK) ===== -->
+    <div id="karsilastirmaTepsisi"
+        class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[1280px] z-40 border-t border-x border-outline-variant shadow-lg bg-surface-container-high hidden">
+        <div class="flex justify-between items-center p-md gap-md">
+            <div id="tepsidekiUrunler" class="flex gap-sm overflow-x-auto flex-1 items-center"></div>
+            <button id="karsilastirBtn" onclick="if(!this.disabled) location.href='karsilastirma.html'" disabled
+                class="bg-surface-variant text-on-surface-variant rounded-lg px-lg py-sm font-bold flex items-center gap-sm shrink-0 cursor-not-allowed opacity-60"
+                title="2 ürün daha ekleyin">
+                <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">compare</span>
+                Şimdi Karşılaştır
+            </button>
+        </div>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="bg-surface-container-lowest border-t border-outline-variant mt-xl pb-24 md:pb-lg">
+        <div class="flex flex-col md:flex-row justify-between items-center py-lg px-xl max-w-[1280px] mx-auto gap-md">
+            <div class="flex items-center gap-sm">
+                <span class="material-symbols-outlined text-primary text-2xl"
+                    style="font-variation-settings:'FILL' 1;">stacked_bar_chart</span>
+                <span class="text-headline-md text-primary">KarşılaştırMax</span>
+            </div>
+            <div class="flex flex-wrap justify-center gap-md text-body-sm">
+                <a href="#" class="text-on-surface-variant hover:text-primary transition-colors">Hakkımızda</a>
+                <a href="#" class="text-on-surface-variant hover:text-primary transition-colors">Kullanım Koşulları</a>
+                <a href="#" class="text-on-surface-variant hover:text-primary transition-colors">Gizlilik Politikası</a>
+                <a href="#" class="text-on-surface-variant hover:text-primary transition-colors">İletişim</a>
+            </div>
+            <div class="text-body-sm text-on-surface-variant">© 2024 KarşılaştırMax</div>
+        </div>
+    </footer>
+
+    <script>
+        /* =====================================================
+           YARDIMCI FONKSİYONLAR (index.html ile aynı)
+           ===================================================== */
+        function karsilastirmaListesiAl() { return JSON.parse(localStorage.getItem('karsilastirmaListesi') || '[]'); }
+        function karsilastirmaListesiKaydet(liste) { localStorage.setItem('karsilastirmaListesi', JSON.stringify(liste)); }
+        function favoriListesiAl() { return JSON.parse(localStorage.getItem('favoriListesi') || '[]'); }
+        function favoriListesiKaydet(liste) { localStorage.setItem('favoriListesi', JSON.stringify(liste)); }
+        function fiyatFormat(fiyat) { return fiyat.toLocaleString('tr-TR') + ' TL'; }
+
+        /* =====================================================
+           FİLTRE ve SIRALAMA DURUM DEĞİŞKENLERİ
+           Bu değişkenler hangi filtrenin/sıralamanın aktif olduğunu tutar
+           ===================================================== */
+        let tumUrunler = [];           /* data.json'dan gelen tüm ürünler */
+        let seciliKategoriler = [];    /* İşaretlenen kategoriler */
+        let seciliMarkalar = [];       /* İşaretlenen markalar */
+        let aktifSiralama = 'onerildi'; /* Şu anki sıralama */
+        let aramaTerimi = '';          /* Arama kutusu değeri */
+
+        /* =====================================================
+           ÜRÜN KARTI OLUŞTURMA
+           ===================================================== */
+        function urunKartiOlustur(urun) {
+            const karsilastirmaListesi = karsilastirmaListesiAl();
+            const favoriListesi = favoriListesiAl();
+            const karsilastirmada = karsilastirmaListesi.some(u => u.id === urun.id);
+            const favoride = favoriListesi.some(u => u.id === urun.id);
+
+            const indirimRozeti = urun.eskiFiyat
+                ? `<span class="bg-error/20 text-error text-[10px] font-bold px-sm py-xs rounded uppercase tracking-wider">%${Math.round((1 - urun.fiyat / urun.eskiFiyat) * 100)} İndirim</span>` : '';
+            const yeniRozeti = urun.yeni
+                ? `<span class="bg-primary/20 text-primary text-[10px] font-bold px-sm py-xs rounded uppercase tracking-wider">YENİ</span>` : '';
+            const eskiFiyatHTML = urun.eskiFiyat
+                ? `<span class="text-on-surface-variant line-through text-body-sm">${fiyatFormat(urun.eskiFiyat)}</span>` : '';
+
+            return `
+        <article class="group bg-[#1a1a1a] border ${karsilastirmada ? 'border-primary/50 shadow-[0_0_12px_rgba(63,229,108,0.15)]' : 'border-[#2e2e2e]'} rounded-xl overflow-hidden hover:scale-[1.02] hover:border-outline-variant transition-all duration-300 flex flex-col relative">
+          <div class="absolute top-sm left-sm z-10 flex gap-xs">${yeniRozeti}${indirimRozeti}</div>
+          <button onclick="favoriToggle(${urun.id})" class="absolute top-sm right-sm z-10 p-xs rounded-full bg-surface/70 backdrop-blur text-${favoride ? 'primary' : 'on-surface-variant'} hover:text-primary transition-colors">
+            <span class="material-symbols-outlined text-lg" style="font-variation-settings:'FILL' ${favoride ? 1 : 0};">favorite</span>
+          </button>
+          <div class="h-48 bg-surface-container-low relative overflow-hidden flex items-center justify-center p-md cursor-pointer" onclick="location.href='urunDetay.html?id=${urun.id}'">
+            <img src="${urun.gorsel}" alt="${urun.ad}" class="max-h-full object-contain group-hover:scale-105 transition-transform duration-500"/>
+          </div>
+          <div class="p-md flex flex-col flex-1 border-t border-[#2e2e2e]">
+            <div class="flex justify-between items-start mb-sm gap-sm">
+              <h3 class="text-headline-md text-on-surface leading-tight cursor-pointer hover:text-primary transition-colors" onclick="location.href='urunDetay.html?id=${urun.id}'">${urun.ad}</h3>
+              <div class="flex items-center bg-surface px-sm py-xs rounded shrink-0">
+                <span class="text-primary text-xs">★</span>
+                <span class="text-label-md text-on-surface ml-xs">${urun.puan}</span>
+              </div>
+            </div>
+            <span class="text-[10px] font-bold text-on-surface-variant bg-surface-variant/50 px-sm py-xs rounded-full w-fit mb-sm">${urun.kategori} · ${urun.marka}</span>
+            <div class="mt-auto">
+              <div class="flex items-baseline gap-sm mb-md">
+                ${eskiFiyatHTML}
+                <div class="text-headline-lg text-primary">${fiyatFormat(urun.fiyat)}</div>
+              </div>
+              <div class="flex gap-sm">
+                <button onclick="karsilastirmaToggle(${urun.id})" 
+                  class="flex-1 border ${karsilastirmada ? 'bg-primary/10 border-primary text-primary' : 'border-primary text-primary hover:bg-primary/10'} transition-colors rounded-lg py-sm text-label-lg flex items-center justify-center gap-xs">
+                  <span class="material-symbols-outlined text-lg">${karsilastirmada ? 'check' : 'add'}</span>
+                  ${karsilastirmada ? 'Eklendi' : 'Karşılaştır'}
+                </button>
+                <button onclick="location.href='urunDetay.html?id=${urun.id}'" class="bg-primary text-on-primary hover:bg-primary-fixed transition-colors rounded-lg px-md flex items-center justify-center">
+                  <span class="material-symbols-outlined">arrow_forward</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </article>`;
+        }
+
+        /* =====================================================
+           SIRALAMA FONKSİYONU
+           Sıralama tipine göre ürün dizisini yeniden sıralar
+           ===================================================== */
+        function sirala(tip) {
+            aktifSiralama = tip;
+
+            /* Tüm sıralama butonlarının stilini sıfırla */
+            document.querySelectorAll('[id^="btn-"]').forEach(btn => {
+                btn.className = 'px-md py-xs rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-variant/50 text-label-md transition-colors';
+            });
+            /* Aktif butonu vurgula */
+            const aktifBtn = document.getElementById('btn-' + tip);
+            if (aktifBtn) aktifBtn.className = 'px-md py-xs rounded bg-surface-variant text-on-surface text-label-md transition-colors';
+
+            urunleriGoster(); /* Listeyi yeniden oluştur */
+        }
+
+        /* =====================================================
+           FİLTRELEME FONKSİYONU
+           Seçilen filtrelere göre ürünleri filtreler
+           ===================================================== */
+        function filtreleriUygula() {
+            urunleriGoster();
+        }
+
+        /* Tüm filtreleri sıfırla */
+        function filtreleriTemizle() {
+            seciliKategoriler = [];
+            seciliMarkalar = [];
+            aramaTerimi = '';
+            document.getElementById('minFiyat').value = 0;
+            document.getElementById('maxFiyat').value = 999999;
+            document.querySelector('input[name="minPuan"][value="0"]').checked = true;
+
+            /* Checkbox'ları temizle */
+            document.querySelectorAll('#kategoriFiltreler input, #markaFiltreler input').forEach(cb => cb.checked = false);
+
+            /* URL hash'i de temizle */
+            history.replaceState(null, '', window.location.pathname);
+
+            urunleriGoster();
+        }
+
+        /* =====================================================
+           URL HASH FONKSİYONLARI
+           Filtre durumunu URL'ye yazar ve URL'den okur.
+           Örnek: urunler.html#kategori=Telefon&marka=Samsung&minFiyat=10000
+           Bu sayede sayfa yenilenince filtreler korunur,
+           link paylaşılınca karşı taraf aynı filtrelenmiş listeyi görür.
+           ===================================================== */
+
+        /* Mevcut filtre durumunu URL hash'e yaz */
+        function hashiGuncelle() {
+            const minFiyat = parseInt(document.getElementById('minFiyat').value) || 0;
+            const maxFiyat = parseInt(document.getElementById('maxFiyat').value) || 999999;
+            const minPuan = parseFloat(document.querySelector('input[name="minPuan"]:checked')?.value || 0);
+
+            /* Parametreleri birleştir (boş olanları ekleme) */
+            const params = [];
+            if (seciliKategoriler.length > 0) params.push('kategori=' + encodeURIComponent(seciliKategoriler.join(',')));
+            if (seciliMarkalar.length > 0) params.push('marka=' + encodeURIComponent(seciliMarkalar.join(',')));
+            if (minFiyat > 0) params.push('minFiyat=' + minFiyat);
+            if (maxFiyat < 999999) params.push('maxFiyat=' + maxFiyat);
+            if (minPuan > 0) params.push('minPuan=' + minPuan);
+            if (aktifSiralama !== 'onerildi') params.push('siralama=' + aktifSiralama);
+
+            /* URL'yi güncelle (sayfa yenilenmez, sadece adres değişir) */
+            if (params.length > 0) {
+                history.replaceState(null, '', '#' + params.join('&'));
+            } else {
+                history.replaceState(null, '', window.location.pathname);
+            }
+        }
+
+        /* Sayfa açılınca URL hash'ten filtreleri geri yükle */
+        function hashtenFiltreYukle() {
+            const hash = window.location.hash.slice(1); /* # işaretini at */
+            if (!hash) return; /* Hash yoksa çık */
+
+            /* Her parametreyi ayrıştır */
+            const params = {};
+            hash.split('&').forEach(parca => {
+                const [anahtar, deger] = parca.split('=');
+                if (anahtar && deger) params[anahtar] = decodeURIComponent(deger);
+            });
+
+            /* Kategorileri geri yükle */
+            if (params.kategori) {
+                seciliKategoriler = params.kategori.split(',');
+                /* İlgili checkbox'ları işaretle */
+                seciliKategoriler.forEach(kat => {
+                    const cb = document.querySelector(`#kategoriFiltreler input[value="${kat}"]`);
+                    if (cb) cb.checked = true;
+                });
+            }
+
+            /* Markaları geri yükle */
+            if (params.marka) {
+                seciliMarkalar = params.marka.split(',');
+                seciliMarkalar.forEach(marka => {
+                    const cb = document.querySelector(`#markaFiltreler input[value="${marka}"]`);
+                    if (cb) cb.checked = true;
+                });
+            }
+
+            /* Fiyat aralığını geri yükle */
+            if (params.minFiyat) document.getElementById('minFiyat').value = params.minFiyat;
+            if (params.maxFiyat) document.getElementById('maxFiyat').value = params.maxFiyat;
+
+            /* Puan filtresini geri yükle */
+            if (params.minPuan) {
+                const puanRadio = document.querySelector(`input[name="minPuan"][value="${params.minPuan}"]`);
+                if (puanRadio) puanRadio.checked = true;
+            }
+
+            /* Sıralamayı geri yükle */
+            if (params.siralama) sirala(params.siralama);
+        }
+
+        /* =====================================================
+           ÜRÜN LİSTESİNİ EKRANA YAZ
+           Filtrelenmiş ve sıralanmış ürünleri gösterir
+           ===================================================== */
+        function urunleriGoster() {
+            /* 1. Filtre değerlerini oku */
+            const minFiyat = parseInt(document.getElementById('minFiyat').value) || 0;
+            const maxFiyat = parseInt(document.getElementById('maxFiyat').value) || 999999;
+            const minPuan = parseFloat(document.querySelector('input[name="minPuan"]:checked')?.value || 0);
+
+            /* 2. Ürünleri filtrele */
+            let filtreliUrunler = tumUrunler.filter(urun => {
+                /* Kategori filtresi: hiç seçili yoksa hepsini göster */
+                const kategoriUygun = seciliKategoriler.length === 0 || seciliKategoriler.includes(urun.kategori);
+                /* Marka filtresi */
+                const markaUygun = seciliMarkalar.length === 0 || seciliMarkalar.includes(urun.marka);
+                /* Fiyat aralığı */
+                const fiyatUygun = urun.fiyat >= minFiyat && urun.fiyat <= maxFiyat;
+                /* Puan filtresi */
+                const puanUygun = urun.puan >= minPuan;
+                /* Arama terimi: ad veya marka içinde ara */
+                const aramaUygun = aramaTerimi === '' || urun.ad.toLowerCase().includes(aramaTerimi) || urun.marka.toLowerCase().includes(aramaTerimi) || urun.kategori.toLowerCase().includes(aramaTerimi);
+
+                return kategoriUygun && markaUygun && fiyatUygun && puanUygun && aramaUygun;
+            });
+
+            /* 3. Sırala */
+            if (aktifSiralama === 'fiyatArtan') filtreliUrunler.sort((a, b) => a.fiyat - b.fiyat);
+            else if (aktifSiralama === 'fiyatAzalan') filtreliUrunler.sort((a, b) => b.fiyat - a.fiyat);
+            else if (aktifSiralama === 'puan') filtreliUrunler.sort((a, b) => b.puan - a.puan);
+            else if (aktifSiralama === 'yorumSayisi') filtreliUrunler.sort((a, b) => b.yorumSayisi - a.yorumSayisi);
+            /* 'onerildi' için sıralama değişmez */
+
+            /* 4. Ekrana yaz */
+            const konteyner = document.getElementById('urunListesi');
+            const bulunamadi = document.getElementById('bulunamadi');
+            const sayi = document.getElementById('urunSayisiMetni');
+
+            sayi.textContent = `${filtreliUrunler.length} ürün bulundu`;
+
+            if (filtreliUrunler.length === 0) {
+                konteyner.innerHTML = '';
+                bulunamadi.classList.remove('hidden');
+                bulunamadi.classList.add('flex');
+            } else {
+                bulunamadi.classList.add('hidden');
+                bulunamadi.classList.remove('flex');
+                konteyner.innerHTML = filtreliUrunler.map(urunKartiOlustur).join('');
+            }
+
+            /* Aktif filtre rozetini güncelle */
+            const toplamAktif = seciliKategoriler.length + seciliMarkalar.length + (minFiyat > 0 ? 1 : 0) + (maxFiyat < 999999 ? 1 : 0) + (minPuan > 0 ? 1 : 0);
+            const rozetEl = document.getElementById('aktifFiltreSayisi');
+            if (toplamAktif > 0) {
+                rozetEl.textContent = toplamAktif + ' Aktif';
+                rozetEl.classList.remove('hidden');
+            } else {
+                rozetEl.classList.add('hidden');
+            }
+
+            /* Her filtre değişince URL hash'i güncelle */
+            hashiGuncelle();
+        }
+
+        /* =====================================================
+           FİLTRE SEÇENEKLERİNİ OLUŞTUR
+           data.json'daki benzersiz kategori ve markaları listeler
+           ===================================================== */
+        function filtreleriOlustur() {
+            /* Benzersiz kategorileri bul */
+            const kategoriler = [...new Set(tumUrunler.map(u => u.kategori))];
+            const kategoriKonteyner = document.getElementById('kategoriFiltreler');
+            kategoriKonteyner.innerHTML = kategoriler.map(kat => {
+                const sayi = tumUrunler.filter(u => u.kategori === kat).length;
+                return `
+          <label class="flex items-center gap-sm cursor-pointer group">
+            <input type="checkbox" value="${kat}" onchange="kategoriToggle('${kat}')"
+              class="text-primary focus:ring-primary bg-surface border-outline-variant rounded"/>
+            <span class="text-body-sm text-on-surface-variant group-hover:text-on-surface transition-colors">${kat}</span>
+            <span class="ml-auto text-label-md text-outline">${sayi}</span>
+          </label>`;
+            }).join('');
+
+            /* Benzersiz markaları bul */
+            const markalar = [...new Set(tumUrunler.map(u => u.marka))];
+            const markaKonteyner = document.getElementById('markaFiltreler');
+            markaKonteyner.innerHTML = markalar.map(marka => {
+                return `
+          <label class="flex items-center gap-sm cursor-pointer group">
+            <input type="checkbox" value="${marka}" onchange="markaToggle('${marka}')"
+              class="text-primary focus:ring-primary bg-surface border-outline-variant rounded"/>
+            <span class="text-body-sm text-on-surface-variant group-hover:text-on-surface transition-colors">${marka}</span>
+          </label>`;
+            }).join('');
+        }
+
+        /* Kategori checkbox değişince çağrılır */
+        function kategoriToggle(kategori) {
+            const index = seciliKategoriler.indexOf(kategori);
+            if (index !== -1) seciliKategoriler.splice(index, 1);
+            else seciliKategoriler.push(kategori);
+            filtreleriUygula();
+        }
+
+        /* Marka checkbox değişince çağrılır */
+        function markaToggle(marka) {
+            const index = seciliMarkalar.indexOf(marka);
+            if (index !== -1) seciliMarkalar.splice(index, 1);
+            else seciliMarkalar.push(marka);
+            filtreleriUygula();
+        }
+
+        /* Puan radio butonları değişince otomatik filtrele */
+        document.addEventListener('change', function (e) {
+            if (e.target.name === 'minPuan') filtreleriUygula();
+        });
+
+        /* =====================================================
+           KARŞILAŞTIRMA ve FAVORİ FONKSİYONLARI
+           ===================================================== */
+        function karsilastirmaToggle(urunId) {
+            let liste = karsilastirmaListesiAl();
+            const mevcutIndex = liste.findIndex(u => u.id === urunId);
+            if (mevcutIndex !== -1) {
+                liste.splice(mevcutIndex, 1);
+            } else {
+                if (liste.length >= 3) { alert('En fazla 3 ürün karşılaştırabilirsiniz!'); return; }
+                const urun = tumUrunler.find(u => u.id === urunId);
+                if (urun) liste.push(urun);
+            }
+            karsilastirmaListesiKaydet(liste);
+            urunleriGoster();
+            tepsiyiGuncelle();
+        }
+
+        function favoriToggle(urunId) {
+            let liste = favoriListesiAl();
+            const mevcutIndex = liste.findIndex(u => u.id === urunId);
+            if (mevcutIndex !== -1) liste.splice(mevcutIndex, 1);
+            else { const urun = tumUrunler.find(u => u.id === urunId); if (urun) liste.push(urun); }
+            favoriListesiKaydet(liste);
+            navRozetGuncelle();
+            urunleriGoster();
+        }
+
+        function karsilastirmadanCikar(urunId) {
+            let liste = karsilastirmaListesiAl();
+            liste = liste.filter(u => u.id !== urunId);
+            karsilastirmaListesiKaydet(liste);
+            urunleriGoster();
+            tepsiyiGuncelle();
+        }
+
+        /* Navigasyon rozetlerini güncelle */
+        function navRozetGuncelle() {
+            const favoriSayi = favoriListesiAl().length;
+            const navFavori = document.getElementById('navFavoriSayisi');
+            if (navFavori) {
+                navFavori.textContent = favoriSayi;
+                favoriSayi > 0 ? navFavori.classList.remove('hidden') : navFavori.classList.add('hidden');
+            }
+        }
+
+        /* ===== KARŞILAŞTIRMA TEPSİSİ ===== */
+        function tepsiyiGuncelle() {
+            const liste = karsilastirmaListesiAl();
+            const tepsi = document.getElementById('karsilastirmaTepsisi');
+            const tepsidekiUrunler = document.getElementById('tepsidekiUrunler');
+            const navSayi = document.getElementById('navKarsilastirmaSayisi');
+
+            liste.length > 0 ? tepsi.classList.remove('hidden') : tepsi.classList.add('hidden');
+
+            if (navSayi) {
+                navSayi.textContent = liste.length;
+                liste.length > 0 ? navSayi.classList.remove('hidden') : navSayi.classList.add('hidden');
+            }
+
+            tepsidekiUrunler.innerHTML = liste.map(urun => `
+        <div class="flex items-center gap-sm text-on-surface-variant px-md py-sm bg-surface-variant/30 rounded-lg border border-primary/30 shrink-0">
+          <span class="material-symbols-outlined text-primary">inventory_2</span>
+          <span class="text-label-md text-on-surface truncate max-w-[120px]">${urun.ad}</span>
+          <button onclick="karsilastirmadanCikar(${urun.id})" class="ml-auto text-on-surface-variant hover:text-error transition-colors">
+            <span class="material-symbols-outlined text-base">close</span>
+          </button>
+        </div>
+      `).join('') + (liste.length < 3 ? `
+        <div class="flex items-center gap-sm text-on-surface-variant px-md py-sm bg-surface-variant/30 rounded-lg border border-dashed border-outline-variant shrink-0 opacity-50">
+          <span class="material-symbols-outlined">add</span>
+          <span class="text-label-md">Ürün Ekle (${liste.length}/3)</span>
+        </div>` : '');
+
+            /* =====================================================
+               KARŞILAŞTIR BUTONU: 3 ürün dolunca aktif olur
+               3'ten az seçiliyse buton soluk ve tıklanamaz görünür
+               ===================================================== */
+            const karsilastirBtn = document.getElementById('karsilastirBtn');
+            if (liste.length === 3) {
+                /* 3 ürün tam — buton aktif, yeşil parıltı efekti */
+                karsilastirBtn.disabled = false;
+                karsilastirBtn.className = 'bg-primary text-on-primary rounded-lg px-lg py-sm font-bold flex items-center gap-sm shrink-0 hover:bg-primary-fixed transition-colors shadow-[0_0_15px_rgba(63,229,108,0.4)] cursor-pointer';
+                karsilastirBtn.title = 'Karşılaştırmaya başla';
+            } else {
+                /* 3'ten az — buton pasif, soluk görünüm */
+                karsilastirBtn.disabled = true;
+                karsilastirBtn.className = 'bg-surface-variant text-on-surface-variant rounded-lg px-lg py-sm font-bold flex items-center gap-sm shrink-0 cursor-not-allowed opacity-60';
+                karsilastirBtn.title = `${3 - liste.length} ürün daha ekleyin`;
+            }
+        }
+
+        /* =====================================================
+           SAYFA BAŞLANGICI: VERİLERİ YÜKLE
+           ===================================================== */
+        document.addEventListener('DOMContentLoaded', function () {
+            /* URL'den arama parametresini oku (index.html'den geliyorsa) */
+            const urlParams = new URLSearchParams(window.location.search);
+            aramaTerimi = (urlParams.get('arama') || '').toLowerCase();
+
+            /* Nav arama kutusu input dinleyicisi */
+            const navArama = document.getElementById('navArama');
+            if (navArama) {
+                navArama.value = aramaTerimi;
+                navArama.addEventListener('input', function () {
+                    aramaTerimi = this.value.toLowerCase();
+                    urunleriGoster();
+                });
+            }
+
+            /* data.json'u yükle */
+            fetch('data.json')
+                .then(res => res.json())
+                .then(urunler => {
+                    tumUrunler = urunler;
+                    filtreleriOlustur(); /* Filtre seçeneklerini oluştur */
+                    hashtenFiltreYukle(); /* URL hash'te filtre varsa geri yükle */
+                    urunleriGoster();   /* Ürünleri listele */
+                    tepsiyiGuncelle();  /* Tepsiyi başlat */
+                    navRozetGuncelle();
+                })
+                .catch(hata => console.error('Veri yüklenemedi:', hata));
+        });
+    </script>
+</body>
+
+</html>
