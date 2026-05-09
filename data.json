@@ -1,0 +1,170 @@
+[
+    {
+        "id": 1,
+        "ad": "Samsung Galaxy S24 Ultra",
+        "kategori": "Akıllı Telefon",
+        "marka": "Samsung",
+        "fiyat": 69999,
+        "eskiFiyat": 74999,
+        "puan": 4.8,
+        "yorumSayisi": 128,
+        "gorsel": "https://via.placeholder.com/300x300/1a1a1a/00c853?text=S24+Ultra",
+        "indirimli": true,
+        "yeni": false,
+        "ozellikler": {
+            "İşlemci": "Snapdragon 8 Gen 3",
+            "RAM": "12 GB",
+            "Depolama": "512 GB",
+            "Batarya": "5000 mAh",
+            "Ekran": "6.8 inç Dynamic AMOLED",
+            "Kamera": "200 MP"
+        }
+    },
+    {
+        "id": 2,
+        "ad": "Apple iPhone 15 Pro Max",
+        "kategori": "Akıllı Telefon",
+        "marka": "Apple",
+        "fiyat": 82999,
+        "eskiFiyat": null,
+        "puan": 4.9,
+        "yorumSayisi": 210,
+        "gorsel": "https://via.placeholder.com/300x300/1a1a1a/00c853?text=iPhone+15",
+        "indirimli": false,
+        "yeni": true,
+        "ozellikler": {
+            "İşlemci": "Apple A17 Pro",
+            "RAM": "8 GB",
+            "Depolama": "256 GB",
+            "Batarya": "4422 mAh",
+            "Ekran": "6.7 inç Super Retina XDR",
+            "Kamera": "48 MP"
+        }
+    },
+    {
+        "id": 3,
+        "ad": "Xiaomi Redmi Note 12 Pro",
+        "kategori": "Akıllı Telefon",
+        "marka": "Xiaomi",
+        "fiyat": 12899,
+        "eskiFiyat": 14999,
+        "puan": 4.5,
+        "yorumSayisi": 340,
+        "gorsel": "https://via.placeholder.com/300x300/1a1a1a/00c853?text=Redmi+12",
+        "indirimli": true,
+        "yeni": false,
+        "ozellikler": {
+            "İşlemci": "MediaTek Dimensity 1080",
+            "RAM": "8 GB",
+            "Depolama": "256 GB",
+            "Batarya": "5000 mAh",
+            "Ekran": "6.67 inç AMOLED",
+            "Kamera": "50 MP"
+        }
+    },
+    {
+        "id": 4,
+        "ad": "Apple MacBook Pro 14 M3 Pro",
+        "kategori": "Dizüstü Bilgisayar",
+        "marka": "Apple",
+        "fiyat": 79999,
+        "eskiFiyat": null,
+        "puan": 4.9,
+        "yorumSayisi": 95,
+        "gorsel": "https://via.placeholder.com/300x300/1a1a1a/00c853?text=MacBook+Pro",
+        "indirimli": false,
+        "yeni": true,
+        "ozellikler": {
+            "İşlemci": "Apple M3 Pro",
+            "RAM": "18 GB",
+            "Depolama": "512 GB SSD",
+            "Batarya": "72 Wh",
+            "Ekran": "14.2 inç Liquid Retina XDR",
+            "GPU": "18 Çekirdek"
+        }
+    },
+    {
+        "id": 5,
+        "ad": "ASUS ROG Zephyrus G14 OLED",
+        "kategori": "Dizüstü Bilgisayar",
+        "marka": "ASUS",
+        "fiyat": 58499,
+        "eskiFiyat": 64999,
+        "puan": 4.6,
+        "yorumSayisi": 73,
+        "gorsel": "https://via.placeholder.com/300x300/1a1a1a/00c853?text=ROG+G14",
+        "indirimli": true,
+        "yeni": false,
+        "ozellikler": {
+            "İşlemci": "AMD Ryzen 9 7940HS",
+            "RAM": "16 GB DDR5",
+            "Depolama": "1 TB SSD",
+            "Batarya": "76 Wh",
+            "Ekran": "14 inç QHD+ OLED 165Hz",
+            "GPU": "RTX 4060"
+        }
+    },
+    {
+        "id": 6,
+        "ad": "Samsung Galaxy A54 5G",
+        "kategori": "Akıllı Telefon",
+        "marka": "Samsung",
+        "fiyat": 15499,
+        "eskiFiyat": 16999,
+        "puan": 4.3,
+        "yorumSayisi": 560,
+        "gorsel": "https://via.placeholder.com/300x300/1a1a1a/00c853?text=Galaxy+A54",
+        "indirimli": true,
+        "yeni": false,
+        "ozellikler": {
+            "İşlemci": "Exynos 1380",
+            "RAM": "8 GB",
+            "Depolama": "256 GB",
+            "Batarya": "5000 mAh",
+            "Ekran": "6.4 inç Super AMOLED",
+            "Kamera": "50 MP"
+        }
+    },
+    {
+        "id": 7,
+        "ad": "Realme 11 Pro 5G",
+        "kategori": "Akıllı Telefon",
+        "marka": "Realme",
+        "fiyat": 14199,
+        "eskiFiyat": null,
+        "puan": 4.2,
+        "yorumSayisi": 88,
+        "gorsel": "https://via.placeholder.com/300x300/1a1a1a/00c853?text=Realme+11",
+        "indirimli": false,
+        "yeni": false,
+        "ozellikler": {
+            "İşlemci": "MediaTek Dimensity 7050",
+            "RAM": "8 GB",
+            "Depolama": "256 GB",
+            "Batarya": "5000 mAh",
+            "Ekran": "6.7 inç AMOLED 100Hz",
+            "Kamera": "100 MP"
+        }
+    },
+    {
+        "id": 8,
+        "ad": "Google Pixel 8 Pro",
+        "kategori": "Akıllı Telefon",
+        "marka": "Google",
+        "fiyat": 44500,
+        "eskiFiyat": 49999,
+        "puan": 4.5,
+        "yorumSayisi": 142,
+        "gorsel": "https://via.placeholder.com/300x300/1a1a1a/00c853?text=Pixel+8+Pro",
+        "indirimli": true,
+        "yeni": false,
+        "ozellikler": {
+            "İşlemci": "Google Tensor G3",
+            "RAM": "12 GB",
+            "Depolama": "256 GB",
+            "Batarya": "5050 mAh",
+            "Ekran": "6.7 inç LTPO OLED",
+            "Kamera": "50 MP"
+        }
+    }
+]
