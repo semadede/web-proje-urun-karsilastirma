@@ -56,14 +56,52 @@ body {
    En iyi ve en kötü değer için renk kodlaması
    ===================================================== */
 
-/* En iyi değer: yeşil vurgu */
+/* En iyi değer: span içinde yeşil pill vurgusu */
 .en-iyi {
-    background-color: rgba(63, 229, 108, 0.08);
-    border-left: 3px solid #3fe56c;
+    background-color: rgba(63, 229, 108, 0.22);
+    color: #3fe56c;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 6px;
 }
 
-/* En kötü değer: kırmızı vurgu */
+/* En kötü değer: span içinde kırmızı pill vurgusu */
 .en-kotu {
-    background-color: rgba(255, 180, 171, 0.08);
-    border-left: 3px solid #ffb4ab;
+    background-color: rgba(255, 180, 171, 0.12);
+    padding: 3px 10px;
+    border-radius: 6px;
+}
+
+/* Hücre (div) seviyesinde arka plan + sol kenarlık vurgusu.
+   :has() ile JavaScript'e dokunmadan parent div hedeflenir. */
+div:has(> .en-iyi) {
+    background-color: rgba(63, 229, 108, 0.09) !important;
+    position: relative;
+}
+
+div:has(> .en-iyi)::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background-color: #3fe56c;
+    border-radius: 0 2px 2px 0;
+}
+
+div:has(> .en-kotu) {
+    background-color: rgba(255, 180, 171, 0.05) !important;
+    position: relative;
+}
+
+div:has(> .en-kotu)::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background-color: rgba(255, 180, 171, 0.35);
+    border-radius: 0 2px 2px 0;
 }
