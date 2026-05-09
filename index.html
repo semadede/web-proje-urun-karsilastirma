@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html class="dark" lang="tr">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>KarşılaştırMax - Ana Sayfa</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <script>
+        /* =====================================================
+           TAILWIND RENK & TASARIM AYARLARI
+           Burada tüm site genelinde kullanılan renkler tanımlı.
+           "primary" = yeşil (#3fe56c), "background" = koyu siyah (#0d150d)
+           ===================================================== */
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "background": "#0d150d",
+                        "surface": "#0d150d",
+                        "surface-container-lowest": "#081008",
+                        "surface-container-low": "#151e15",
+                        "surface-container": "#192219",
+                        "surface-container-high": "#242c23",
+                        "surface-container-highest": "#2e372e",
+                        "surface-variant": "#2e372e",
+                        "surface-bright": "#333b32",
+                        "surface-dim": "#0d150d",
+                        "surface-tint": "#3ce36a",
+                        "on-surface": "#dce5d7",
+                        "on-surface-variant": "#bbcbb8",
+                        "on-background": "#dce5d7",
+                        "primary": "#3fe56c",
+                        "primary-container": "#00c853",
+                        "primary-fixed": "#69ff87",
+                        "primary-fixed-dim": "#3ce36a",
+                        "on-primary": "#003912",
+                        "on-primary-container": "#004c1b",
+                        "on-primary-fixed": "#002108",
+                        "on-primary-fixed-variant": "#00531e",
+                        "inverse-primary": "#006e2a",
+                        "secondary": "#c8c6c5",
+                        "secondary-container": "#474746",
+                        "secondary-fixed": "#e5e2e1",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "on-secondary": "#303030",
+                        "on-secondary-container": "#b7b5b4",
+                        "on-secondary-fixed": "#1b1b1c",
+                        "on-secondary-fixed-variant": "#474746",
+                        "tertiary": "#cbc8c8",
+                        "tertiary-container": "#afadad",
+                        "tertiary-fixed": "#e4e2e1",
+                        "tertiary-fixed-dim": "#c8c6c5",
+                        "on-tertiary": "#303030",
+                        "on-tertiary-container": "#414141",
+                        "on-tertiary-fixed": "#1b1c1c",
+                        "on-tertiary-fixed-variant": "#474746",
+                        "outline": "#869583",
+                        "outline-variant": "#3c4a3c",
+                        "error": "#ffb4ab",
+                        "error-container": "#93000a",
+                        "on-error": "#690005",
+                        "on-error-container": "#ffdad6",
+                        "inverse-surface": "#dce5d7",
+                        "inverse-on-surface": "#2a3329",
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"
+                    },
+                    spacing: {
+                        "base": "4px", "gutter": "20px", "xl": "40px",
+                        "lg": "24px", "md": "16px", "sm": "8px",
+                        "container-max": "1280px", "xs": "4px"
+                    },
+                    fontFamily: { "sans": ["Inter"] },
+                    fontSize: {
+                        "label-lg": ["14px", { lineHeight: "16px", letterSpacing: "0.05em", fontWeight: "600" }],
+                        "headline-md": ["20px", { lineHeight: "28px", fontWeight: "600" }],
+                        "headline-lg": ["28px", { lineHeight: "36px", fontWeight: "700" }],
+                        "headline-lg-mobile": ["24px", { lineHeight: "32px", fontWeight: "700" }],
+                        "display-md": ["36px", { lineHeight: "44px", letterSpacing: "-0.01em", fontWeight: "700" }],
+                        "body-sm": ["14px", { lineHeight: "20px", fontWeight: "400" }],
+                        "label-md": ["12px", { lineHeight: "14px", fontWeight: "500" }],
+                        "body-md": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+                        "display-lg": ["48px", { lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "800" }],
+                        "body-lg": ["18px", { lineHeight: "28px", fontWeight: "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0d150d;
+            color: #dce5d7;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+
+<body class="bg-background text-on-background min-h-screen flex flex-col">
+
+    <!-- ===== ÜST NAVİGASYON ÇUBUĞU ===== -->
+    <nav class="bg-background/85 backdrop-blur-md top-0 sticky z-50 border-b border-outline-variant">
+        <div class="flex justify-between items-center h-16 px-xl max-w-[1280px] mx-auto">
+            <!-- Logo -->
+            <a href="index.html" class="flex items-center gap-md">
+                <span class="material-symbols-outlined text-primary text-3xl"
+                    style="font-variation-settings:'FILL' 1;">stacked_bar_chart</span>
+                <span class="text-headline-lg text-primary tracking-tight">KarşılaştırMax</span>
+            </a>
+            <!-- Arama kutusu (büyük ekranlarda görünür) -->
+            <div class="hidden md:flex flex-1 max-w-xl mx-lg relative">
+                <span
+                    class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+                <input id="aramaInput"
+                    class="w-full bg-surface-container-high border border-outline-variant rounded-lg pl-xl pr-md py-sm text-on-surface placeholder-on-surface-variant focus:ring-primary focus:border-primary text-body-sm h-12"
+                    placeholder="Ürün ara... Örn: iPhone 15 Pro" type="text" />
+            </div>
+            <!-- Sayfa linkleri -->
+            <div class="hidden md:flex items-center gap-lg">
+                <a href="index.html" class="text-primary border-b-2 border-primary pb-base text-label-lg">Ana Sayfa</a>
+                <a href="urunler.html"
+                    class="text-on-surface-variant hover:text-on-surface transition-colors text-label-lg px-sm py-xs rounded">Ürünler</a>
+                <a href="karsilastirma.html"
+                    class="text-on-surface-variant hover:text-on-surface transition-colors text-label-lg px-sm py-xs rounded">Karşılaştır</a>
+                <a href="favoriler.html"
+                    class="text-on-surface-variant hover:text-on-surface transition-colors text-label-lg px-sm py-xs rounded">Favoriler</a>
+            </div>
+            <!-- Sağ ikon butonları -->
+            <div class="flex items-center gap-sm ml-md">
+                <button onclick="location.href='karsilastirma.html'"
+                    class="p-sm text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-variant/50 rounded-lg relative">
+                    <span class="material-symbols-outlined">compare_arrows</span>
+                    <!-- Karşılaştırma sayısını gösteren rozet -->
+                    <span id="navKarsilastirmaSayisi"
+                        class="absolute -top-1 -right-1 bg-primary text-on-primary text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center hidden">0</span>
+                </button>
+                <button onclick="location.href='favoriler.html'"
+                    class="p-sm text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-variant/50 rounded-lg relative">
+                    <span class="material-symbols-outlined">favorite</span>
+                    <span id="navFavoriSayisi"
+                        class="absolute -top-1 -right-1 bg-primary text-on-primary text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center hidden">0</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ===== ANA İÇERİK ===== -->
+    <main class="flex-1 flex flex-col items-center w-full px-md md:px-xl py-xl gap-xl max-w-[1280px] mx-auto">
+
+        <!-- HERO BÖLÜMÜ: Büyük başlık ve arama alanı -->
+        <section class="w-full max-w-3xl flex flex-col items-center gap-md py-xl">
+            <h1 class="text-display-md text-on-surface text-center font-bold">
+                Akıllı Karşılaştırma, <span class="text-primary">Doğru Karar.</span>
+            </h1>
+            <p class="text-body-lg text-on-surface-variant text-center max-w-xl">
+                Binlerce teknoloji ürününün teknik özelliklerini, fiyatlarını ve puanlarını tek tıkla karşılaştırın.
+            </p>
+            <!-- Büyük arama kutusu -->
+            <div class="w-full relative mt-lg">
+                <span
+                    class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+                <input id="heroArama"
+                    class="w-full bg-surface-container h-14 pl-xl pr-32 rounded-lg border border-outline-variant text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors shadow-lg text-body-md"
+                    placeholder="Ne arıyorsunuz? Örn: Samsung Galaxy S24" type="text" />
+                <button onclick="aramaYap()"
+                    class="absolute right-sm top-1/2 -translate-y-1/2 bg-primary-container text-on-primary-container px-lg py-sm rounded-lg text-label-lg hover:bg-primary transition-colors font-semibold">Ara</button>
+            </div>
+            <!-- Popüler arama etiketleri -->
+            <div class="mt-md flex flex-wrap items-center justify-center gap-sm">
+                <span class="text-label-md text-on-surface-variant">Popüler:</span>
+                <button onclick="etiketAra('Samsung')"
+                    class="bg-surface-variant/50 hover:bg-surface-variant text-on-surface px-sm py-xs rounded-full text-label-md transition-colors border border-outline-variant">Samsung</button>
+                <button onclick="etiketAra('Apple')"
+                    class="bg-surface-variant/50 hover:bg-surface-variant text-on-surface px-sm py-xs rounded-full text-label-md transition-colors border border-outline-variant">Apple</button>
+                <button onclick="etiketAra('Dizüstü')"
+                    class="bg-surface-variant/50 hover:bg-surface-variant text-on-surface px-sm py-xs rounded-full text-label-md transition-colors border border-outline-variant">Dizüstü</button>
+                <button onclick="etiketAra('Akıllı Telefon')"
+                    class="bg-surface-variant/50 hover:bg-surface-variant text-on-surface px-sm py-xs rounded-full text-label-md transition-colors border border-outline-variant">Akıllı
+                    Telefon</button>
+            </div>
+        </section>
+
+        <!-- ÖNE ÇIKAN ÜRÜNLER: data.json'dan JS ile doldurulur -->
+        <section class="w-full flex flex-col gap-lg">
+            <div class="flex justify-between items-end">
+                <h2 class="text-headline-lg text-on-surface">Öne Çıkan Ürünler</h2>
+                <a href="urunler.html"
+                    class="text-label-lg text-primary hover:text-primary-fixed transition-colors">Tümünü Gör →</a>
+            </div>
+            <!-- Ürün kartları bu div'e JS tarafından eklenir -->
+            <div id="oneCikanUrunler" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-lg">
+                <!-- JS dolduracak -->
+            </div>
+        </section>
+
+        <!-- İNDİRİMLİ ÜRÜNLER: Sadece indirimli olanlar gösterilir -->
+        <section class="w-full flex flex-col gap-lg">
+            <div class="flex justify-between items-end">
+                <h2 class="text-headline-lg text-on-surface">İndirimli Ürünler</h2>
+                <a href="urunler.html"
+                    class="text-label-lg text-primary hover:text-primary-fixed transition-colors">Tümünü Gör →</a>
+            </div>
+            <div id="indirimliUrunler" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-md">
+                <!-- JS dolduracak -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ===== KARŞILAŞTIRMA TEPSİSİ (STICKY ALT ÇUBUK) ===== -->
+    <!-- Kullanıcı ürün eklediğinde bu çubuk görünür hale gelir -->
+    <div id="karsilastirmaTepsisi"
+        class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[1280px] z-40 border-t border-x border-outline-variant shadow-lg bg-surface-container-high hidden">
+        <div class="flex justify-between items-center p-md gap-md">
+            <!-- Seçilen ürünler buraya eklenir -->
+            <div id="tepsidekiUrunler" class="flex gap-sm overflow-x-auto flex-1 items-center"></div>
+            <!-- Karşılaştır butonu: 3 ürün seçilince aktif olur -->
+            <button id="karsilastirBtn" onclick="if(!this.disabled) location.href='karsilastirma.html'" disabled
+                class="bg-surface-variant text-on-surface-variant rounded-lg px-lg py-sm font-bold flex items-center gap-sm shrink-0 cursor-not-allowed opacity-60"
+                title="2 ürün daha ekleyin">
+                <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">compare</span>
+                Şimdi Karşılaştır
+            </button>
+        </div>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="bg-surface-container-lowest border-t border-outline-variant mt-xl pb-24 md:pb-lg">
+        <div class="flex flex-col md:flex-row justify-between items-center py-lg px-xl max-w-[1280px] mx-auto gap-md">
+            <div class="flex items-center gap-sm">
+                <span class="material-symbols-outlined text-primary text-2xl"
+                    style="font-variation-settings:'FILL' 1;">stacked_bar_chart</span>
+                <span class="text-headline-md text-primary">KarşılaştırMax</span>
+            </div>
+            <div class="flex flex-wrap justify-center gap-md text-body-sm">
+                <a href="#" class="text-on-surface-variant hover:text-primary transition-colors">Hakkımızda</a>
+                <a href="#" class="text-on-surface-variant hover:text-primary transition-colors">Kullanım Koşulları</a>
+                <a href="#" class="text-on-surface-variant hover:text-primary transition-colors">Gizlilik Politikası</a>
+                <a href="#" class="text-on-surface-variant hover:text-primary transition-colors">İletişim</a>
+            </div>
+            <div class="text-body-sm text-on-surface-variant">© 2024 KarşılaştırMax</div>
+        </div>
+    </footer>
+
+    <script>
+        /* =====================================================
+           ORTAK YARDIMCI FONKSİYONLAR
+           Bu fonksiyonlar tüm sayfalarda aynı şekilde çalışır.
+           localStorage: tarayıcıda veri saklamak için kullanılır.
+           ===================================================== */
+
+        /* Karşılaştırma listesini localStorage'dan oku (yoksa boş dizi döner) */
+        function karsilastirmaListesiAl() {
+            return JSON.parse(localStorage.getItem('karsilastirmaListesi') || '[]');
+        }
+
+        /* Karşılaştırma listesini localStorage'a kaydet */
+        function karsilastirmaListesiKaydet(liste) {
+            localStorage.setItem('karsilastirmaListesi', JSON.stringify(liste));
+        }
+
+        /* Favori listesini localStorage'dan oku */
+        function favoriListesiAl() {
+            return JSON.parse(localStorage.getItem('favoriListesi') || '[]');
+        }
+
+        /* Favori listesini localStorage'a kaydet */
+        function favoriListesiKaydet(liste) {
+            localStorage.setItem('favoriListesi', JSON.stringify(liste));
+        }
+
+        /* Yıldız işareti oluştur (örn: puan 4.5 → ★★★★½) */
+        function yildizOlustur(puan) {
+            return `<span class="text-primary text-sm">★</span> <span class="font-semibold text-on-surface">${puan}</span>`;
+        }
+
+        /* Fiyatı Türk Lirası formatına çevir (örn: 12899 → 12.899 TL) */
+        function fiyatFormat(fiyat) {
+            return fiyat.toLocaleString('tr-TR') + ' TL';
+        }
+
+        /* =====================================================
+           ÜRÜN KARTI OLUŞTURMA FONKSİYONU
+           Her ürün için HTML kartı üretir.
+           "urun" parametresi: data.json'daki bir ürün objesi
+           ===================================================== */
+        function urunKartiOlustur(urun) {
+            const karsilastirmaListesi = karsilastirmaListesiAl();
+            const favoriListesi = favoriListesiAl();
+            const karsilastirmada = karsilastirmaListesi.some(u => u.id === urun.id);
+            const favoride = favoriListesi.some(u => u.id === urun.id);
+
+            /* İndirim rozeti için hesaplama */
+            const indirimRozeti = urun.eskiFiyat
+                ? `<span class="bg-error/20 text-error text-[10px] font-bold px-sm py-xs rounded uppercase tracking-wider">
+             %${Math.round((1 - urun.fiyat / urun.eskiFiyat) * 100)} İndirim
+           </span>`
+                : '';
+
+            const yeniRozeti = urun.yeni
+                ? `<span class="bg-primary/20 text-primary text-[10px] font-bold px-sm py-xs rounded uppercase tracking-wider">YENİ</span>`
+                : '';
+
+            const eskiFiyatHTML = urun.eskiFiyat
+                ? `<span class="text-on-surface-variant line-through text-body-sm">${fiyatFormat(urun.eskiFiyat)}</span>`
+                : '';
+
+            return `
+        <article class="group bg-[#1a1a1a] border ${karsilastirmada ? 'border-primary/50 shadow-[0_0_12px_rgba(63,229,108,0.15)]' : 'border-[#2e2e2e]'} rounded-xl overflow-hidden hover:scale-[1.02] hover:border-outline-variant transition-all duration-300 flex flex-col relative">
+          
+          <!-- Rozet alanı (sol üst köşe) -->
+          <div class="absolute top-sm left-sm z-10 flex gap-xs">
+            ${yeniRozeti}${indirimRozeti}
+          </div>
+
+          <!-- Favori butonu (sağ üst köşe) -->
+          <button onclick="favoriToggle(${urun.id})" class="absolute top-sm right-sm z-10 p-xs rounded-full bg-surface/70 backdrop-blur text-${favoride ? 'primary' : 'on-surface-variant'} hover:text-primary transition-colors">
+            <span class="material-symbols-outlined text-lg" style="font-variation-settings:'FILL' ${favoride ? 1 : 0};">favorite</span>
+          </button>
+
+          <!-- Ürün görseli -->
+          <div class="h-48 bg-surface-container-low relative overflow-hidden flex items-center justify-center p-md cursor-pointer" onclick="location.href='urunDetay.html?id=${urun.id}'">
+            <img src="${urun.gorsel}" alt="${urun.ad}" class="max-h-full object-contain group-hover:scale-105 transition-transform duration-500"/>
+          </div>
+
+          <!-- Ürün bilgileri -->
+          <div class="p-md flex flex-col flex-1 border-t border-[#2e2e2e]">
+            <!-- İsim ve puan -->
+            <div class="flex justify-between items-start mb-sm gap-sm">
+              <h3 class="text-headline-md text-on-surface leading-tight cursor-pointer hover:text-primary transition-colors" onclick="location.href='urunDetay.html?id=${urun.id}'">${urun.ad}</h3>
+              <div class="flex items-center bg-surface px-sm py-xs rounded shrink-0">
+                <span class="text-primary text-xs" style="font-variation-settings:'FILL' 1;">★</span>
+                <span class="text-label-md text-on-surface ml-xs">${urun.puan}</span>
+              </div>
+            </div>
+
+            <!-- Kategori etiketi -->
+            <span class="text-[10px] font-bold text-on-surface-variant bg-surface-variant/50 px-sm py-xs rounded-full w-fit mb-sm">${urun.kategori}</span>
+
+            <!-- Fiyat -->
+            <div class="mt-auto">
+              <div class="flex items-baseline gap-sm mb-md">
+                ${eskiFiyatHTML}
+                <div class="text-headline-lg text-primary">${fiyatFormat(urun.fiyat)}</div>
+              </div>
+
+              <!-- Aksiyion butonları -->
+              <div class="flex gap-sm">
+                <!-- Karşılaştırma butonu: tıklanınca renk değişir -->
+                <button onclick="karsilastirmaToggle(${urun.id})" 
+                  class="flex-1 border ${karsilastirmada ? 'bg-primary/10 border-primary text-primary' : 'border-primary text-primary hover:bg-primary/10'} transition-colors rounded-lg py-sm text-label-lg flex items-center justify-center gap-xs">
+                  <span class="material-symbols-outlined text-lg">${karsilastirmada ? 'check' : 'add'}</span>
+                  ${karsilastirmada ? 'Eklendi' : 'Karşılaştır'}
+                </button>
+                <!-- Detay butonu -->
+                <button onclick="location.href='urunDetay.html?id=${urun.id}'" class="bg-primary text-on-primary hover:bg-primary-fixed transition-colors rounded-lg px-md flex items-center justify-center">
+                  <span class="material-symbols-outlined">arrow_forward</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </article>`;
+        }
+
+        /* =====================================================
+           KARŞILAŞTIRMA TEPSİSİNİ GÜNCELLE
+           Altdaki sticky çubuğu seçilen ürünlere göre günceller
+           ===================================================== */
+        function tepsiyiGuncelle() {
+            const liste = karsilastirmaListesiAl();
+            const tepsi = document.getElementById('karsilastirmaTepsisi');
+            const tepsidekiUrunler = document.getElementById('tepsidekiUrunler');
+            const navSayi = document.getElementById('navKarsilastirmaSayisi');
+            const karsilastirBtn = document.getElementById('karsilastirBtn');
+
+            /* Tepsiyi göster/gizle */
+            if (liste.length > 0) {
+                tepsi.classList.remove('hidden');
+            } else {
+                tepsi.classList.add('hidden');
+            }
+
+            /* Navigasyondaki rozeti güncelle */
+            if (navSayi) {
+                if (liste.length > 0) {
+                    navSayi.textContent = liste.length;
+                    navSayi.classList.remove('hidden');
+                } else {
+                    navSayi.classList.add('hidden');
+                }
+            }
+
+            /* =====================================================
+               KARŞILAŞTIR BUTONU: Tam 3 ürün seçilince aktif olur
+               ===================================================== */
+            if (karsilastirBtn) {
+                if (liste.length === 3) {
+                    karsilastirBtn.disabled = false;
+                    karsilastirBtn.className = 'bg-primary text-on-primary rounded-lg px-lg py-sm font-bold flex items-center gap-sm shrink-0 hover:bg-primary-fixed transition-colors shadow-[0_0_15px_rgba(63,229,108,0.4)] cursor-pointer';
+                    karsilastirBtn.title = 'Karşılaştırmaya başla';
+                } else {
+                    karsilastirBtn.disabled = true;
+                    karsilastirBtn.className = 'bg-surface-variant text-on-surface-variant rounded-lg px-lg py-sm font-bold flex items-center gap-sm shrink-0 cursor-not-allowed opacity-60';
+                    karsilastirBtn.title = `${3 - liste.length} ürün daha ekleyin`;
+                }
+            }
+
+            /* Tepsi içeriğini sıfırla ve yeniden doldur */
+            tepsidekiUrunler.innerHTML = liste.map(urun => `
+        <div class="flex items-center gap-sm text-on-surface-variant px-md py-sm bg-surface-variant/30 rounded-lg border border-primary/30 shrink-0">
+          <span class="material-symbols-outlined text-primary">inventory_2</span>
+          <span class="text-label-md text-on-surface truncate max-w-[120px]">${urun.ad}</span>
+          <button onclick="karsilastirmadanCikar(${urun.id})" class="ml-auto text-on-surface-variant hover:text-error transition-colors">
+            <span class="material-symbols-outlined text-base">close</span>
+          </button>
+        </div>
+      `).join('') + (liste.length < 3 ? `
+        <div class="flex items-center gap-sm text-on-surface-variant px-md py-sm bg-surface-variant/30 rounded-lg border border-dashed border-outline-variant shrink-0 opacity-50">
+          <span class="material-symbols-outlined">add</span>
+          <span class="text-label-md">Ürün Ekle (${liste.length}/3)</span>
+        </div>
+      ` : '');
+        }
+
+        /* =====================================================
+           KARŞILAŞTIRMA FONKSİYONLARI
+           ===================================================== */
+
+        /* Ürünü karşılaştırma listesine ekle/çıkar */
+        function karsilastirmaToggle(urunId) {
+            let liste = karsilastirmaListesiAl();
+            const mevcutIndex = liste.findIndex(u => u.id === urunId);
+
+            if (mevcutIndex !== -1) {
+                /* Ürün zaten listede → çıkar */
+                liste.splice(mevcutIndex, 1);
+            } else {
+                /* Ürün listede değil → ekle (max 3 ürün) */
+                if (liste.length >= 3) {
+                    alert('En fazla 3 ürün karşılaştırabilirsiniz!');
+                    return;
+                }
+                /* Tüm ürün verisini al ve listeye ekle */
+                const urun = tumUrunler.find(u => u.id === urunId);
+                if (urun) liste.push(urun);
+            }
+
+            karsilastirmaListesiKaydet(liste);
+            sayfayiYenile(); /* Kartları yeniden oluştur (buton durumu değişsin) */
+            tepsiyiGuncelle();
+        }
+
+        /* Tepsi içinden ürün çıkar */
+        function karsilastirmadanCikar(urunId) {
+            let liste = karsilastirmaListesiAl();
+            liste = liste.filter(u => u.id !== urunId);
+            karsilastirmaListesiKaydet(liste);
+            sayfayiYenile();
+            tepsiyiGuncelle();
+        }
+
+        /* =====================================================
+           FAVORİ FONKSİYONLARI
+           ===================================================== */
+
+        /* Ürünü favorilere ekle/çıkar */
+        function favoriToggle(urunId) {
+            let liste = favoriListesiAl();
+            const mevcutIndex = liste.findIndex(u => u.id === urunId);
+
+            if (mevcutIndex !== -1) {
+                liste.splice(mevcutIndex, 1); /* Çıkar */
+            } else {
+                const urun = tumUrunler.find(u => u.id === urunId);
+                if (urun) liste.push(urun); /* Ekle */
+            }
+
+            favoriListesiKaydet(liste);
+
+            /* Favori navigasyon rozetini güncelle */
+            const navFavori = document.getElementById('navFavoriSayisi');
+            if (navFavori) {
+                if (liste.length > 0) {
+                    navFavori.textContent = liste.length;
+                    navFavori.classList.remove('hidden');
+                } else {
+                    navFavori.classList.add('hidden');
+                }
+            }
+
+            sayfayiYenile(); /* Kalp ikonu güncellensin */
+        }
+
+        /* =====================================================
+           ARAMA FONKSİYONLARI
+           ===================================================== */
+
+        function aramaYap() {
+            const kelime = document.getElementById('heroArama').value.trim();
+            if (kelime) {
+                /* Arama kelimesini URL parametresi olarak ürün listesine gönder */
+                location.href = `urunler.html?arama=${encodeURIComponent(kelime)}`;
+            }
+        }
+
+        function etiketAra(kelime) {
+            location.href = `urunler.html?arama=${encodeURIComponent(kelime)}`;
+        }
+
+        /* Enter tuşuyla da arama yapılabilsin */
+        document.addEventListener('DOMContentLoaded', function () {
+            const heroArama = document.getElementById('heroArama');
+            if (heroArama) {
+                heroArama.addEventListener('keydown', function (e) {
+                    if (e.key === 'Enter') aramaYap();
+                });
+            }
+        });
+
+        /* =====================================================
+           VERİ YÜKLEME VE SAYFA DOLDURMA
+           data.json'dan ürünleri fetch ile çeker ve ekrana basar
+           ===================================================== */
+
+        let tumUrunler = []; /* Tüm ürünler buraya yüklenir */
+
+        function sayfayiYenile() {
+            /* Öne çıkan ürünler: ilk 6 ürün */
+            const oneCikanContainer = document.getElementById('oneCikanUrunler');
+            if (oneCikanContainer) {
+                oneCikanContainer.innerHTML = tumUrunler.slice(0, 6).map(urunKartiOlustur).join('');
+            }
+
+            /* İndirimli ürünler: eskiFiyat olanlar */
+            const indirimliContainer = document.getElementById('indirimliUrunler');
+            if (indirimliContainer) {
+                const indirimliUrunler = tumUrunler.filter(u => u.eskiFiyat !== null);
+                indirimliContainer.innerHTML = indirimliUrunler.map(urunKartiOlustur).join('');
+            }
+        }
+
+        /* Sayfa yüklenince data.json'u fetch et */
+        fetch('data.json')
+            .then(function (response) {
+                return response.json(); /* JSON olarak oku */
+            })
+            .then(function (urunler) {
+                tumUrunler = urunler; /* Global değişkene kaydet */
+                sayfayiYenile();     /* Sayfayı doldur */
+                tepsiyiGuncelle();   /* Tepsiyi başlat */
+
+                /* Navigasyon rozetlerini başlat */
+                const favoriListesi = favoriListesiAl();
+                const navFavori = document.getElementById('navFavoriSayisi');
+                if (navFavori && favoriListesi.length > 0) {
+                    navFavori.textContent = favoriListesi.length;
+                    navFavori.classList.remove('hidden');
+                }
+            })
+            .catch(function (hata) {
+                /* Hata olursa konsola yaz */
+                console.error('Veri yüklenemedi:', hata);
+            });
+    </script>
+</body>
+
+</html>
