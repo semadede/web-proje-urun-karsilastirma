@@ -105,3 +105,55 @@ div:has(> .en-kotu)::before {
     background-color: rgba(255, 180, 171, 0.35);
     border-radius: 0 2px 2px 0;
 }
+
+
+/* =====================================================
+   KAZANAN SÜTUN STİLİ (karsilastirma.html)
+   En çok "en iyi" değere sahip sütuna uygulanır.
+   renkleriUygula() fonksiyonu bu class'ı JS ile ekler.
+   ===================================================== */
+
+.kazanan-sutun {
+    border-left: 2px solid #00c853 !important;
+    background-color: rgba(0, 200, 83, 0.04) !important;
+}
+
+.kazanan-sutun>div:first-child {
+    background: linear-gradient(to bottom,
+            rgba(0, 200, 83, 0.10) 0%,
+            rgba(0, 200, 83, 0.02) 100%) !important;
+    border-top: 2px solid #00c853;
+}
+
+/* =====================================================
+   KARŞILAŞTIRMA HÜCRE BADGE STİLLERİ
+   renkleriUygula() tarafından .deger-hucresi span'ına eklenir
+   ===================================================== */
+
+/* En iyi değer: yeşil badge */
+.en-iyi {
+    background-color: rgba(0, 200, 83, 0.2) !important;
+    color: #00c853 !important;
+    font-weight: 700 !important;
+    padding: 4px 12px !important;
+    border-radius: 6px !important;
+    border: 1px solid rgba(0, 200, 83, 0.4) !important;
+}
+
+/* En kötü değer: kırmızı badge */
+.en-kotu {
+    background-color: rgba(255, 100, 80, 0.12) !important;
+    color: #ff6450 !important;
+    font-weight: 600 !important;
+    padding: 4px 12px !important;
+    border-radius: 6px !important;
+    border: 1px solid rgba(255, 100, 80, 0.3) !important;
+}
+
+/* Orta değer: gri badge */
+.en-orta {
+    background-color: rgba(180, 180, 180, 0.08) !important;
+    color: #bbcbb8 !important;
+    padding: 4px 12px !important;
+    border-radius: 6px !important;
+}

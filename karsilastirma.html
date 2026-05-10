@@ -54,7 +54,6 @@
             <a href="index.html" class="flex items-center">
                 <img src="images/logo.png" alt="KarşılaştırMax Logo" class="h-20 w-auto object-contain" />
             </a>
-            <!-- Sayfa linkleri (masaüstü) -->
             <div class="hidden md:flex items-center gap-lg">
                 <a href="index.html"
                     class="text-on-surface-variant hover:text-on-surface transition-colors text-label-lg px-sm py-xs rounded">Ana
@@ -73,7 +72,6 @@
                     <span id="navFavoriSayisi"
                         class="absolute -top-1 -right-1 bg-primary text-on-primary text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center hidden">0</span>
                 </button>
-                <!-- Hamburger butonu (yalnızca mobil/tablet) -->
                 <button id="mobileMenuBtn" onclick="toggleMobileMenu()"
                     class="md:hidden p-sm text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-variant/50 rounded-lg"
                     aria-label="Menüyü aç/kapat">
@@ -81,7 +79,6 @@
                 </button>
             </div>
         </div>
-        <!-- Mobil Menü (hamburger tıklanınca açılır) -->
         <div id="mobileMenu" class="md:hidden hidden border-t border-outline-variant">
             <div class="flex flex-col px-md py-sm max-w-[1280px] mx-auto gap-xs">
                 <a href="index.html"
@@ -99,21 +96,17 @@
 
     <!-- ===== ANA İÇERİK ===== -->
     <main class="flex-1 w-full max-w-[1280px] mx-auto px-md md:px-xl py-xl">
-
-        <!-- Sayfa başlığı ve aksiyon butonları -->
         <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-lg gap-md">
             <div>
                 <h1 class="text-display-md text-on-background mb-sm">Ürün Karşılaştırma</h1>
                 <p class="text-body-lg text-on-surface-variant">Seçilen ürünlerin detaylı teknik özellik analizi.</p>
             </div>
             <div class="flex items-center gap-md">
-                <!-- PDF/Yazdırma butonu -->
                 <button onclick="window.print()"
                     class="flex items-center gap-sm px-md py-sm border border-outline-variant rounded-lg text-on-surface hover:bg-surface-container-high transition-colors text-label-md">
                     <span class="material-symbols-outlined text-lg">print</span>
                     Yazdır / PDF
                 </button>
-                <!-- Listeyi temizle butonu -->
                 <button onclick="listeTemizle()"
                     class="flex items-center gap-sm px-md py-sm border border-error/30 rounded-lg text-error hover:bg-error/10 transition-colors text-label-md">
                     <span class="material-symbols-outlined text-lg">delete_sweep</span>
@@ -122,7 +115,6 @@
             </div>
         </div>
 
-        <!-- ===== BOŞ DURUM: Karşılaştırma listesi boşsa göster ===== -->
         <div id="bosEkran"
             class="hidden flex-col items-center justify-center py-20 text-center bg-surface-container rounded-xl border border-outline-variant">
             <span class="material-symbols-outlined text-6xl text-outline mb-md">compare</span>
@@ -130,36 +122,27 @@
             <p class="text-body-md text-on-surface-variant max-w-md mb-lg">Ürünler sayfasından en fazla 3 ürün seçerek
                 karşılaştırmaya başlayın.</p>
             <button onclick="location.href='urunler.html'"
-                class="bg-primary text-on-primary px-xl py-md rounded-lg text-label-lg font-bold hover:bg-primary-fixed transition-colors">
-                Ürünlere Git
-            </button>
+                class="bg-primary text-on-primary px-xl py-md rounded-lg text-label-lg font-bold hover:bg-primary-fixed transition-colors">Ürünlere
+                Git</button>
         </div>
 
-        <!-- ===== KARŞILAŞTIRMA TABLOSU ===== -->
         <div id="karsilastirmaTablosu" class="w-full overflow-x-auto pb-xl hidden">
             <!-- Tablo JS tarafından oluşturulur -->
         </div>
-
     </main>
 
     <!-- ===== FOOTER ===== -->
     <footer class="bg-surface-container-lowest border-t border-outline-variant mt-xl pb-24 md:pb-lg">
         <div class="flex flex-col md:flex-row justify-between items-center py-lg px-xl max-w-[1280px] mx-auto gap-md">
-
-            <!-- Logo: direkt buraya, wrapper div yok -->
             <a href="index.html" class="flex items-center">
                 <img src="images/logo.png" alt="KarşılaştırMax Logo" class="h-10 w-auto object-contain" />
             </a>
-
-            <!-- Linkler: ortada -->
             <div class="flex flex-wrap justify-center gap-md text-body-sm">
                 <a href="#" class="text-on-surface-variant hover:text-primary transition-colors">Hakkımızda</a>
                 <a href="#" class="text-on-surface-variant hover:text-primary transition-colors">Kullanım Koşulları</a>
                 <a href="#" class="text-on-surface-variant hover:text-primary transition-colors">Gizlilik Politikası</a>
                 <a href="#" class="text-on-surface-variant hover:text-primary transition-colors">İletişim</a>
             </div>
-
-            <!-- Copyright: sağda -->
             <div class="text-body-sm text-on-surface-variant">© 2026 Fırsatçı.com</div>
         </div>
     </footer>
@@ -182,48 +165,83 @@
         function fiyatFormat(fiyat) { return fiyat.toLocaleString('tr-TR') + ' TL'; }
 
         /* =====================================================
-           RENK KODLAMA: Sayısal değerleri karşılaştırıp
-           en iyi değeri yeşil, en kötüyü kırmızı yapar
+           Global liste değişkeni
+           tabloOlustur ve renkleriUygula arasında paylaşılır
+           ===================================================== */
+        let karsilastirmaListesi = [];
+
+        /* =====================================================
+           RENK KODLAMA
+           Grid yapısında her sütun ayrı olduğu için satırları
+           sütun index'ine göre grupluyoruz.
+           Her satır tipi (fiyat, puan, yorum, özellik) için
+           tüm ürünlerin değerlerini karşılaştırıyoruz.
+           en iyi → yeşil (.en-iyi)
+           en kötü → kırmızı (.en-kotu)
+           orta → gri (.en-orta)
            ===================================================== */
         function renkleriUygula() {
-            /* Her özellik satırı için en büyük ve en küçük değeri bul */
-            const satirlar = document.querySelectorAll('.ozellik-satiri');
-            satirlar.forEach(satir => {
-                const hucreler = satir.querySelectorAll('.deger-hucresi');
-                const sayisalDegerler = [];
+            const tumSatirlar = document.querySelectorAll('.ozellik-satiri');
+            const urunSayisi = karsilastirmaListesi.length;
+            if (urunSayisi === 0 || tumSatirlar.length === 0) return;
 
-                hucreler.forEach(hucre => {
-                    /* Hücredeki sayıyı bul (metin içinden sayıyı çıkar) */
-                    const sayilar = hucre.textContent.match(/[\d,]+/);
-                    if (sayilar) {
-                        sayisalDegerler.push({
+            /* Her ürün sütununda kaç satır var */
+            const satirSayisi = tumSatirlar.length / urunSayisi;
+
+            /* Her satır numarası için tüm ürünlerin hücrelerini karşılaştır */
+            for (let satirNo = 0; satirNo < satirSayisi; satirNo++) {
+                const buSatirHucreleri = [];
+
+                for (let urunNo = 0; urunNo < urunSayisi; urunNo++) {
+                    /* Grid yapısı: ürün0_satır0, ürün0_satır1... ürün1_satır0, ürün1_satır1... */
+                    const satirIndex = urunNo * satirSayisi + satirNo;
+                    const satir = tumSatirlar[satirIndex];
+                    if (!satir) continue;
+
+                    const hucre = satir.querySelector('.deger-hucresi');
+                    if (!hucre) continue;
+
+                    /* Türkçe format: "82.999 TL" → noktaları kaldır → "82999" */
+                    const temizMetin = hucre.textContent.replace(/\./g, '').replace(/,/g, '.');
+                    const sayi = temizMetin.match(/\d+(\.\d+)?/);
+
+                    if (sayi) {
+                        buSatirHucreleri.push({
                             hucre: hucre,
-                            deger: parseFloat(sayilar[0].replace(',', '.'))
+                            deger: parseFloat(sayi[0]),
+                            yuksekIyi: satir.dataset.yuksekiyi === 'true'
                         });
                     }
-                });
+                }
 
-                if (sayisalDegerler.length < 2) return; /* Karşılaştırılacak yeterli değer yok */
+                /* En az 2 değer yoksa karşılaştırma yapma */
+                if (buSatirHucreleri.length < 2) continue;
 
-                /* En büyük ve en küçük değeri bul */
-                const enBuyuk = Math.max(...sayisalDegerler.map(d => d.deger));
-                const enKucuk = Math.min(...sayisalDegerler.map(d => d.deger));
+                const enBuyuk = Math.max(...buSatirHucreleri.map(d => d.deger));
+                const enKucuk = Math.min(...buSatirHucreleri.map(d => d.deger));
 
-                /* "yuksek-iyi" veri özniteliği varsa büyük değer iyi, yoksa küçük değer iyi */
-                const yuksekIyi = satir.dataset.yuksekiyi === 'true';
+                /* Tüm değerler eşitse renklendirme yapma */
+                if (enBuyuk === enKucuk) continue;
 
-                sayisalDegerler.forEach(item => {
-                    item.hucre.classList.remove('en-iyi', 'en-kotu');
+                const yuksekIyi = buSatirHucreleri[0].yuksekIyi;
+
+                buSatirHucreleri.forEach(item => {
+                    /* Önce tüm renk class'larını temizle */
+                    item.hucre.classList.remove('en-iyi', 'en-kotu', 'en-orta');
+
                     if (yuksekIyi) {
+                        /* Yüksek değer iyi (puan, RAM, batarya vb.) */
                         if (item.deger === enBuyuk) item.hucre.classList.add('en-iyi');
                         else if (item.deger === enKucuk) item.hucre.classList.add('en-kotu');
+                        else item.hucre.classList.add('en-orta');
                     } else {
-                        /* Fiyat gibi düşük değerin iyi olduğu durumlar */
+                        /* Düşük değer iyi (fiyat) */
                         if (item.deger === enKucuk) item.hucre.classList.add('en-iyi');
                         else if (item.deger === enBuyuk) item.hucre.classList.add('en-kotu');
+                        else item.hucre.classList.add('en-orta');
                     }
                 });
-            });
+            }
         }
 
         /* =====================================================
@@ -231,11 +249,13 @@
            localStorage'daki ürünleri alıp tablo HTML'i üretir
            ===================================================== */
         function tabloOlustur() {
-            const liste = karsilastirmaListesiAl();
+            /* Global listeye ata — renkleriUygula erişebilsin */
+            karsilastirmaListesi = karsilastirmaListesiAl();
+            const liste = karsilastirmaListesi;
+
             const bosEkran = document.getElementById('bosEkran');
             const tablo = document.getElementById('karsilastirmaTablosu');
 
-            /* Liste boşsa boş ekranı göster */
             if (liste.length === 0) {
                 bosEkran.classList.remove('hidden');
                 bosEkran.classList.add('flex');
@@ -247,107 +267,95 @@
             bosEkran.classList.remove('flex');
             tablo.classList.remove('hidden');
 
-            /* Sütun genişliğini hesapla: etiket sütunu + ürün sütunları */
             const sutunSayi = liste.length + 1;
             const gridCols = `grid-cols-${sutunSayi}`;
-
-            /* Tüm ürünlerdeki ortak özellikleri bul */
             const tumOzellikAnahtarlari = [...new Set(liste.flatMap(u => Object.keys(u.ozellikler)))];
 
-            /* ======= TABLO HTML'İ OLUŞTUR ======= */
             let html = `<div class="min-w-[700px] border border-outline-variant rounded-xl bg-surface-container-low overflow-hidden">
-        <div class="grid ${gridCols} w-full">`;
+                <div class="grid ${gridCols} w-full">`;
 
-            /* --- ETİKET SÜTUNU (sol sütun) --- */
+            /* --- ETİKET SÜTUNU (sol) --- */
             html += `<div class="col-span-1 bg-surface-container-high border-r border-outline-variant">`;
-            /* Görsel alan için boşluk */
             html += `<div class="h-[260px] p-md flex flex-col justify-end border-b border-outline-variant">
-        <h3 class="text-label-lg text-on-surface-variant mb-xs">Karşılaştırma</h3>
-        <p class="text-body-sm text-on-surface-variant">${liste.length} ürün karşılaştırılıyor.</p>
-      </div>`;
-            /* Sabit satır etiketleri */
+                <h3 class="text-label-lg text-on-surface-variant mb-xs">Karşılaştırma</h3>
+                <p class="text-body-sm text-on-surface-variant">${liste.length} ürün karşılaştırılıyor.</p>
+            </div>`;
             html += `<div class="p-md text-label-lg text-on-surface border-b border-outline-variant/50 h-[56px] flex items-center">Fiyat</div>`;
             html += `<div class="p-md text-label-lg text-on-surface border-b border-outline-variant/50 h-[56px] flex items-center bg-surface-variant/20">Puan</div>`;
             html += `<div class="p-md text-label-lg text-on-surface border-b border-outline-variant/50 h-[56px] flex items-center">Yorum Sayısı</div>`;
-            /* Teknik özellik başlığı */
             html += `<div class="p-md text-label-lg text-primary border-b border-outline-variant bg-surface-container-high mt-sm">Teknik Özellikler</div>`;
-            /* Dinamik özellik satırları */
             tumOzellikAnahtarlari.forEach((key, i) => {
                 const bg = i % 2 === 0 ? '' : 'bg-surface-variant/20';
                 html += `<div class="p-md text-body-md text-on-surface border-b border-outline-variant/50 h-[56px] flex items-center ${bg}">${key}</div>`;
             });
-            html += `</div>`; /* Etiket sütunu bitti */
+            html += `</div>`;
 
             /* --- ÜRÜN SÜTUNLARI --- */
             liste.forEach((urun, index) => {
-                html += `<div class="col-span-1 ${index < liste.length - 1 ? 'border-r border-outline-variant' : ''} bg-surface hover:bg-surface-variant/5 transition-colors">`;
+                const borderClass = index < liste.length - 1 ? 'border-r border-outline-variant' : '';
+                html += `<div class="col-span-1 ${borderClass} bg-surface hover:bg-surface-variant/5 transition-colors">`;
 
-                /* Ürün başlığı: görsel + isim + değiştir butonu */
+                /* Ürün başlık alanı */
                 html += `<div class="h-[260px] p-md flex flex-col items-center justify-between border-b border-outline-variant relative group">
-          <!-- Sütundan çıkar butonu (hover'da görünür) -->
-          <button onclick="urunuCikar(${urun.id})" class="absolute top-sm right-sm p-xs text-on-surface-variant hover:text-error bg-surface-container-high rounded-full opacity-0 group-hover:opacity-100 transition-opacity" title="Kaldır">
-            <span class="material-symbols-outlined text-base">close</span>
-          </button>
-          <img src="${urun.gorsel}" alt="${urun.ad}" class="w-28 h-28 object-contain"/>
-          <div class="text-center w-full">
-            <h3 class="text-headline-md text-on-surface line-clamp-2 mb-xs">${urun.ad}</h3>
-            <span class="text-[10px] text-on-surface-variant">${urun.marka} · ${urun.kategori}</span>
-          </div>
-          <!-- Ürünü Değiştir butonu -->
-          <button onclick="location.href='urunler.html'" class="w-full mt-sm py-sm border border-primary text-primary rounded-lg text-label-md hover:bg-primary/10 transition-colors flex items-center justify-center gap-xs">
-            <span class="material-symbols-outlined text-base">swap_horiz</span> Ürünü Değiştir
-          </button>
-        </div>`;
+                    <button onclick="urunuCikar(${urun.id})" class="absolute top-sm right-sm p-xs text-on-surface-variant hover:text-error bg-surface-container-high rounded-full opacity-0 group-hover:opacity-100 transition-opacity" title="Kaldır">
+                        <span class="material-symbols-outlined text-base">close</span>
+                    </button>
+                    <img src="${urun.gorsel}" alt="${urun.ad}" class="w-28 h-28 object-contain"/>
+                    <div class="text-center w-full">
+                        <h3 class="text-headline-md text-on-surface line-clamp-2 mb-xs">${urun.ad}</h3>
+                        <span class="text-[10px] text-on-surface-variant">${urun.marka} · ${urun.kategori}</span>
+                    </div>
+                    <button onclick="location.href='urunler.html'" class="w-full mt-sm py-sm border border-primary text-primary rounded-lg text-label-md hover:bg-primary/10 transition-colors flex items-center justify-center gap-xs">
+                        <span class="material-symbols-outlined text-base">swap_horiz</span> Ürünü Değiştir
+                    </button>
+                </div>`;
 
-                /* Fiyat satırı (data-yuksekiyi="false" → düşük fiyat daha iyi) */
+                /* Fiyat: düşük iyi */
                 html += `<div class="ozellik-satiri p-md border-b border-outline-variant/50 h-[56px] flex items-center justify-center" data-yuksekiyi="false">
-          <span class="deger-hucresi text-headline-md text-primary font-bold">${fiyatFormat(urun.fiyat)}</span>
-        </div>`;
+                    <span class="deger-hucresi text-headline-md text-primary font-bold">${fiyatFormat(urun.fiyat)}</span>
+                </div>`;
 
-                /* Puan satırı (data-yuksekiyi="true" → yüksek puan daha iyi) */
+                /* Puan: yüksek iyi */
                 html += `<div class="ozellik-satiri p-md border-b border-outline-variant/50 h-[56px] flex items-center justify-center bg-surface-variant/20" data-yuksekiyi="true">
-          <span class="deger-hucresi flex items-center gap-xs text-on-surface">
-            <span class="text-primary">★</span> ${urun.puan}
-          </span>
-        </div>`;
+                    <span class="deger-hucresi flex items-center gap-xs text-on-surface">
+                        <span class="text-primary">★</span> ${urun.puan}
+                    </span>
+                </div>`;
 
-                /* Yorum sayısı satırı */
+                /* Yorum sayısı: yüksek iyi */
                 html += `<div class="ozellik-satiri p-md border-b border-outline-variant/50 h-[56px] flex items-center justify-center" data-yuksekiyi="true">
-          <span class="deger-hucresi text-body-sm text-on-surface">${urun.yorumSayisi} yorum</span>
-        </div>`;
+                    <span class="deger-hucresi text-body-sm text-on-surface">${urun.yorumSayisi} yorum</span>
+                </div>`;
 
-                /* Teknik özellik başlığı boşluğu */
+                /* Teknik özellikler başlık boşluğu */
                 html += `<div class="h-[40px] border-b border-outline-variant mt-sm bg-surface-container-high"></div>`;
 
-                /* Dinamik özellik değerleri */
+                /* Dinamik özellikler */
                 tumOzellikAnahtarlari.forEach((key, i) => {
                     const deger = urun.ozellikler[key] || '—';
                     const bg = i % 2 === 0 ? '' : 'bg-surface-variant/20';
                     html += `<div class="ozellik-satiri p-md border-b border-outline-variant/50 h-[56px] flex items-center justify-center text-center ${bg}" data-yuksekiyi="true">
-            <span class="deger-hucresi text-body-sm text-on-surface">${deger}</span>
-          </div>`;
+                        <span class="deger-hucresi text-body-sm text-on-surface">${deger}</span>
+                    </div>`;
                 });
 
-                html += `</div>`; /* Ürün sütunu bitti */
+                html += `</div>`;
             });
 
-            html += `</div></div>`; /* Tablo bitti */
-
+            html += `</div></div>`;
             tablo.innerHTML = html;
 
-            /* Renk kodlamayı uygula */
+            /* Renk kodlamasını uygula */
             renkleriUygula();
         }
 
-        /* Ürünü karşılaştırma listesinden çıkar ve tabloyu yenile */
         function urunuCikar(urunId) {
             let liste = karsilastirmaListesiAl();
             liste = liste.filter(u => u.id !== urunId);
             karsilastirmaListesiKaydet(liste);
-            tabloOlustur(); /* Tabloyu yeniden oluştur */
+            tabloOlustur();
         }
 
-        /* Tüm listeyi temizle */
         function listeTemizle() {
             if (confirm('Karşılaştırma listesi temizlensin mi?')) {
                 karsilastirmaListesiKaydet([]);
@@ -355,11 +363,8 @@
             }
         }
 
-        /* ===== SAYFA BAŞLANGICI ===== */
         document.addEventListener('DOMContentLoaded', function () {
             tabloOlustur();
-
-            /* Favori rozeti */
             const favoriSayi = favoriListesiAl().length;
             const navFavori = document.getElementById('navFavoriSayisi');
             if (navFavori && favoriSayi > 0) {
