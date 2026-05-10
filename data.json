@@ -313,5 +313,215 @@
             "Sürücü": "10 mm",
             "Mikrofon": "3 adet"
         }
+    },
+    {
+        "id": 16,
+        "ad": "LG C3 55 inç 4K OLED TV",
+        "kategori": "Televizyon",
+        "marka": "LG",
+        "fiyat": 54999,
+        "eskiFiyat": 59999,
+        "puan": 4.9,
+        "yorumSayisi": 156,
+        "gorsel": "images/lgC3-55inç4K-OLEDTV.jpg",
+        "indirimli": true,
+        "yeni": false,
+        "ozellikler": {
+            "Ekran": "55 inç OLED",
+            "Çözünürlük": "4K Ultra HD",
+            "Yenileme Hızı": "120 Hz",
+            "Panel": "evo OLED",
+            "HDR": "Dolby Vision",
+            "Ses": "40W"
+        }
+    },
+    {
+        "id": 17,
+        "ad": "Samsung 65QN90C Neo QLED",
+        "kategori": "Televizyon",
+        "marka": "Samsung",
+        "fiyat": 62499,
+        "eskiFiyat": null,
+        "puan": 4.7,
+        "yorumSayisi": 84,
+        "gorsel": "images/samsung65QN90CNeoQLED.jpg",
+        "indirimli": false,
+        "yeni": true,
+        "ozellikler": {
+            "Ekran": "65 inç Neo QLED",
+            "Çözünürlük": "4K Ultra HD",
+            "Yenileme Hızı": "144 Hz",
+            "İşlemci": "Neo Quantum 4K",
+            "Panel": "Mini LED",
+            "Akıllı TV": "Tizen"
+        }
+    },
+    {
+        "id": 18,
+        "ad": "TCL 55C745 Gaming TV",
+        "kategori": "Televizyon",
+        "marka": "TCL",
+        "fiyat": 28999,
+        "eskiFiyat": 31499,
+        "puan": 4.6,
+        "yorumSayisi": 210,
+        "gorsel": "images/tcl55C745GamingTV.jpg",
+        "indirimli": true,
+        "yeni": false,
+        "ozellikler": {
+            "Ekran": "55 inç QLED",
+            "Çözünürlük": "4K Ultra HD",
+            "Yenileme Hızı": "144 Hz VRR",
+            "Panel": "Full Array Local Dimming",
+            "HDR": "HDR10+",
+            "İşletim Sistemi": "Google TV"
+        }
+    },
+    {
+        "id": 19,
+        "ad": "Sennheiser Momentum 4",
+        "kategori": "Kulaklık",
+        "marka": "Sennheiser",
+        "fiyat": 13499,
+        "eskiFiyat": 14999,
+        "puan": 4.8,
+        "yorumSayisi": 312,
+        "gorsel": "images/sennheiserMomentum4.jpg",
+        "indirimli": true,
+        "yeni": false,
+        "ozellikler": {
+            "Tip": "Kulak Üstü",
+            "Bağlantı": "Bluetooth 5.2",
+            "Batarya": "60 saat",
+            "Gürültü Engelleme": "Adaptif ANC",
+            "Sürücü": "42 mm",
+            "Codec": "aptX Adaptive"
+        }
+    },
+    {
+        "id": 20,
+        "ad": "JBL Tune 520BT",
+        "kategori": "Kulaklık",
+        "marka": "JBL",
+        "fiyat": 1899,
+        "eskiFiyat": null,
+        "puan": 4.5,
+        "yorumSayisi": 4500,
+        "gorsel": "images/jblTune520BT.jpg",
+        "indirimli": false,
+        "yeni": false,
+        "ozellikler": {
+            "Tip": "Kulak Üstü",
+            "Bağlantı": "Bluetooth 5.3",
+            "Batarya": "57 saat",
+            "Hızlı Şarj": "5 dk şarjla 3 saat",
+            "Mikrofon": "Var",
+            "Ses": "Pure Bass"
+        }
+    },
+    {
+        "id": 21,
+        "ad": "Apple Watch Ultra 2",
+        "kategori": "Akıllı Saat",
+        "marka": "Apple",
+        "fiyat": 42999,
+        "eskiFiyat": null,
+        "puan": 4.9,
+        "yorumSayisi": 125,
+        "gorsel": "images/appleWatchUltra2.jpg",
+        "indirimli": false,
+        "yeni": true,
+        "ozellikler": {
+            "Kasa": "49 mm Titanyum",
+            "Ekran": "Retina OLED 3000 nit",
+            "Batarya": "36 saat",
+            "Suya Dayanıklılık": "100 metre",
+            "GPS": "Çift Frekanslı",
+            "Sensör": "EKG, Kanda Oksijen"
+        }
+    },
+    {
+        "id": 22,
+        "ad": "Samsung Galaxy Watch 6 Classic",
+        "kategori": "Akıllı Saat",
+        "marka": "Samsung",
+        "fiyat": 8499,
+        "eskiFiyat": 9999,
+        "puan": 4.6,
+        "yorumSayisi": 480,
+        "gorsel": "images/samsungGalaxyWatch6Classic.jpg",
+        "indirimli": true,
+        "yeni": false,
+        "ozellikler": {
+            "Kasa": "47 mm Paslanmaz Çelik",
+            "Ekran": "1.5 inç Safir Kristal",
+            "Batarya": "425 mAh",
+            "İşletim Sistemi": "Wear OS",
+            "Sensör": "BIA Analizi, Uyku Takibi",
+            "Çerçeve": "Dönen Mekanik Çerçeve"
+        }
+    },
+    {
+        "id": 23,
+        "ad": "iPad Pro 11 inç M2",
+        "kategori": "Tablet",
+        "marka": "Apple",
+        "fiyat": 32499,
+        "eskiFiyat": null,
+        "puan": 4.9,
+        "yorumSayisi": 188,
+        "gorsel": "images/iPadPro11inçM2.jpg",
+        "indirimli": false,
+        "yeni": false,
+        "ozellikler": {
+            "İşlemci": "Apple M2",
+            "Ekran": "11 inç Liquid Retina",
+            "Depolama": "128 GB",
+            "RAM": "8 GB",
+            "Kamera": "12 MP Geniş + 10 MP Ultra Geniş",
+            "Bağlantı": "Wi-Fi 6E"
+        }
+    },
+    {
+        "id": 24,
+        "ad": "Samsung Galaxy Tab S9 Ultra",
+        "kategori": "Tablet",
+        "marka": "Samsung",
+        "fiyat": 36999,
+        "eskiFiyat": 39999,
+        "puan": 4.8,
+        "yorumSayisi": 92,
+        "gorsel": "images/samsungGalaxyTabS9Ultra.jpg",
+        "indirimli": true,
+        "yeni": true,
+        "ozellikler": {
+            "İşlemci": "Snapdragon 8 Gen 2",
+            "Ekran": "14.6 inç Dynamic AMOLED 2X",
+            "RAM": "12 GB",
+            "Depolama": "256 GB",
+            "Aksesuar": "S-Pen Dahil",
+            "Dayanıklılık": "IP68"
+        }
+    },
+    {
+        "id": 25,
+        "ad": "Sony PlayStation 5 Slim",
+        "kategori": "Oyun Konsolu",
+        "marka": "Sony",
+        "fiyat": 34999,
+        "eskiFiyat": 38099,
+        "puan": 4.9,
+        "yorumSayisi": 1540,
+        "gorsel": "images/sonyPlayStation5Slim.jpg",
+        "indirimli": true,
+        "yeni": true,
+        "ozellikler": {
+            "İşlemci": "AMD Ryzen Zen 2",
+            "GPU": "AMD RDNA 2 (10.3 TFLOPS)",
+            "Depolama": "1 TB SSD",
+            "Çözünürlük": "4K 120 FPS",
+            "Kontrolcü": "DualSense",
+            "Sürücü": "Ultra HD Blu-ray"
+        }
     }
 ]
