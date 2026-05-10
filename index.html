@@ -540,10 +540,24 @@
 
         /* Enter tuşuyla da arama yapılabilsin */
         document.addEventListener('DOMContentLoaded', function () {
+            /* Hero arama kutusu */
             const heroArama = document.getElementById('heroArama');
             if (heroArama) {
                 heroArama.addEventListener('keydown', function (e) {
                     if (e.key === 'Enter') aramaYap();
+                });
+            }
+
+            /* Navbar arama kutusu — Enter ile urunler sayfasına gider */
+            const aramaInput = document.getElementById('aramaInput');
+            if (aramaInput) {
+                aramaInput.addEventListener('keydown', function (e) {
+                    if (e.key === 'Enter') {
+                        const kelime = aramaInput.value.trim();
+                        if (kelime) {
+                            location.href = `urunler.html?arama=${encodeURIComponent(kelime)}`;
+                        }
+                    }
                 });
             }
         });
