@@ -118,9 +118,8 @@
         <div id="bosEkran"
             class="hidden flex-col items-center justify-center py-20 text-center bg-surface-container rounded-xl border border-outline-variant">
             <span class="material-symbols-outlined text-6xl text-outline mb-md">compare</span>
-            <h3 class="text-headline-lg text-on-surface mb-sm">Karşılaştırılacak ürün yok</h3>
-            <p class="text-body-md text-on-surface-variant max-w-md mb-lg">Ürünler sayfasından en fazla 3 ürün seçerek
-                karşılaştırmaya başlayın.</p>
+            <h3 class="text-headline-lg text-on-surface mb-sm" id="bosEkranBaslik">Karşılaştırılacak ürün yok</h3>
+            <p class="text-body-md text-on-surface-variant max-w-md mb-lg" id="bosEkranAciklama">Ürünler sayfasından 3 ürün seçerek karşılaştırmaya başlayın.</p>
             <button onclick="location.href='urunler.html'"
                 class="bg-primary text-on-primary px-xl py-md rounded-lg text-label-lg font-bold hover:bg-primary-fixed transition-colors">Ürünlere
                 Git</button>
@@ -256,10 +255,19 @@
             const bosEkran = document.getElementById('bosEkran');
             const tablo = document.getElementById('karsilastirmaTablosu');
 
-            if (liste.length === 0) {
+            if (liste.length < 3) {
                 bosEkran.classList.remove('hidden');
                 bosEkran.classList.add('flex');
                 tablo.classList.add('hidden');
+                const baslik = document.getElementById('bosEkranBaslik');
+                const aciklama = document.getElementById('bosEkranAciklama');
+                if (liste.length === 0) {
+                    baslik.textContent = 'Karşılaştırılacak ürün yok';
+                    aciklama.textContent = 'Ürünler sayfasından 3 ürün seçerek karşılaştırmaya başlayın.';
+                } else {
+                    baslik.textContent = `${liste.length}/3 ürün seçildi`;
+                    aciklama.textContent = 'Karşılaştırma başlatmak için en az 3 ürün seçmelisiniz.';
+                }
                 return;
             }
 

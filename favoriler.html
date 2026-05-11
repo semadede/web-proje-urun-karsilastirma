@@ -67,7 +67,7 @@
                     class="text-primary border-b-2 border-primary pb-base text-label-lg">Favoriler</a>
             </div>
             <div class="flex items-center gap-sm">
-                <button onclick="location.href='karsilastirma.html'"
+                <button id="navKarsilastirmaBtn" onclick="navKarsilastirmaGit()"
                     class="p-sm text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-variant/50 rounded-lg relative">
                     <span class="material-symbols-outlined">compare_arrows</span>
                     <span id="navKarsilastirmaSayisi"
@@ -161,6 +161,10 @@
             icon.textContent = menu.classList.contains('hidden') ? 'menu' : 'close';
         }
 
+        function navKarsilastirmaGit() {
+            if (karsilastirmaListesiAl().length >= 3) location.href = 'karsilastirma.html';
+        }
+
         /* =====================================================
            YARDIMCI FONKSİYONLAR
            ===================================================== */
@@ -211,10 +215,20 @@
 
             konteyner.innerHTML = listeHtmlOlustur('Tüm Favorilerim', favoriListesi);
 
-            /* Navigasyon rozeti */
+            /* Navigasyon rozeti ve buton durumu */
             const navK = document.getElementById('navKarsilastirmaSayisi');
+            const navBtn = document.getElementById('navKarsilastirmaBtn');
             const ks = karsilastirmaListesiAl().length;
             if (navK) { navK.textContent = ks; ks > 0 ? navK.classList.remove('hidden') : navK.classList.add('hidden'); }
+            if (navBtn) {
+                if (ks >= 3) {
+                    navBtn.classList.remove('opacity-40', 'cursor-not-allowed');
+                    navBtn.title = 'Karşılaştırmaya git';
+                } else {
+                    navBtn.classList.add('opacity-40', 'cursor-not-allowed');
+                    navBtn.title = `Karşılaştırma için 3 ürün seçin (${ks}/3)`;
+                }
+            }
         }
 
         /* Tek bir liste bölümünün HTML'ini oluştur */
