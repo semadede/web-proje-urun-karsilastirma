@@ -103,18 +103,10 @@
     <!-- ===== ANA İÇERİK ===== -->
     <main class="flex-grow py-xl px-md md:px-xl max-w-[1280px] mx-auto w-full flex flex-col gap-xl">
 
-        <!-- Sayfa başlığı ve "Yeni Liste Oluştur" butonu -->
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-md">
-            <div>
-                <h1 class="text-display-md text-on-surface mb-sm">Favorilerim</h1>
-                <p class="text-body-lg text-on-surface-variant">Kaydettiğiniz ürünleri listeler halinde yönetin.</p>
-            </div>
-            <!-- Yeni liste oluşturma butonu -->
-            <button onclick="yeniListeOlustur()"
-                class="flex items-center gap-sm px-lg py-3 rounded-lg border border-primary text-primary hover:bg-primary/10 transition-colors text-label-lg">
-                <span class="material-symbols-outlined">add</span>
-                Yeni Liste Oluştur
-            </button>
+        <!-- Sayfa başlığı -->
+        <div>
+            <h1 class="text-display-md text-on-surface mb-sm">Favorilerim</h1>
+            <p class="text-body-lg text-on-surface-variant">Kaydettiğiniz ürünleri listeler halinde yönetin.</p>
         </div>
 
         <!-- ===== BOŞ DURUM: Favori yoksa göster ===== -->
@@ -134,23 +126,6 @@
         <!-- ===== FAVORİ LİSTELERİ: JS ile doldurulur ===== -->
         <div id="listelerKonteyneri" class="flex flex-col gap-xl">
             <!-- Her liste bir <section> olarak eklenir -->
-        </div>
-
-        <!-- ===== LİSTE ADI FORMU MODALI ===== -->
-        <!-- "Yeni Liste Oluştur" tıklandığında görünür -->
-        <div id="listeFormuModal"
-            class="hidden fixed inset-0 bg-background/80 backdrop-blur-sm z-50 flex items-center justify-center">
-            <div class="bg-surface-container border border-outline-variant rounded-xl p-xl max-w-md w-full mx-md">
-                <h3 class="text-headline-lg text-on-surface mb-md">Yeni Liste Oluştur</h3>
-                <input id="listeAdiInput" type="text" placeholder="Liste adı (örn: Bütçe Telefonlar)"
-                    class="w-full bg-surface border border-outline-variant rounded-lg px-md py-sm text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary mb-lg h-12 text-body-md" />
-                <div class="flex gap-md">
-                    <button onclick="listeFormIptal()"
-                        class="flex-1 border border-outline-variant text-on-surface-variant py-sm rounded-lg text-label-lg hover:bg-surface-container-high transition-colors">İptal</button>
-                    <button onclick="listeFormKaydet()"
-                        class="flex-1 bg-primary text-on-primary py-sm rounded-lg text-label-lg font-bold hover:bg-primary-fixed transition-colors">Oluştur</button>
-                </div>
-            </div>
         </div>
 
     </main>
@@ -208,49 +183,6 @@
         }
 
         /* =====================================================
-           YENİ LİSTE OLUŞTURMA
-           ===================================================== */
-        function yeniListeOlustur() {
-            /* Formu göster */
-            document.getElementById('listeFormuModal').classList.remove('hidden');
-            document.getElementById('listeFormuModal').classList.add('flex');
-            document.getElementById('listeAdiInput').value = '';
-            document.getElementById('listeAdiInput').focus();
-        }
-
-        function listeFormIptal() {
-            document.getElementById('listeFormuModal').classList.add('hidden');
-            document.getElementById('listeFormuModal').classList.remove('flex');
-        }
-
-        function listeFormKaydet() {
-            const ad = document.getElementById('listeAdiInput').value.trim();
-            if (!ad) { alert('Lütfen bir liste adı girin.'); return; }
-
-            const listeler = favoriListeleriAl();
-            /* Aynı isimde liste var mı kontrol et */
-            if (listeler.some(l => l.ad === ad)) {
-                alert('Bu isimde bir liste zaten var.');
-                return;
-            }
-
-            /* Yeni listeyi kaydet */
-            listeler.push({ ad: ad, urunIdler: [] });
-            favoriListeleriKaydet(listeler);
-
-            listeFormIptal();
-            sayfayiYenile();
-        }
-
-        /* Enter tuşuyla da kaydet */
-        document.addEventListener('DOMContentLoaded', function () {
-            document.getElementById('listeAdiInput').addEventListener('keydown', function (e) {
-                if (e.key === 'Enter') listeFormKaydet();
-                if (e.key === 'Escape') listeFormIptal();
-            });
-        });
-
-        /* =====================================================
            ÜRÜNLERİ LİSTEYE EKLE / ÇIKAR
            ===================================================== */
 
@@ -300,21 +232,10 @@
             sayfayiYenile();
         }
 
-        /* Listedeki tüm ürünleri karşılaştırmaya gönder */
-        function listeyiKarsilastir(listeAd, tumUrunler) {
-            const listeler = favoriListeleriAl();
-            const liste = listeler.find(l => l.ad === listeAd);
-            if (!liste || liste.urunIdler.length === 0) {
-                alert('Bu liste boş.');
-                return;
-            }
-            if (liste.urunIdler.length > 3) {
-                alert('Karşılaştırma için listeden en fazla 3 ürün seçilebilir. İlk 3 ürün gönderilecek.');
-            }
-
-            /* İlk 3 ürünü karşılaştırma listesine aktar */
-            const secilenUrunler = liste.urunIdler.slice(0, 3).map(id => tumUrunler.find(u => u.id === id)).filter(Boolean);
-            karsilastirmaListesiKaydet(secilenUrunler);
+        /* Seçili 3 ürünü karşılaştırma sayfasına gönder */
+        function listeyiKarsilastir() {
+            const liste = karsilastirmaListesiAl();
+            if (liste.length < 3) return;
             location.href = 'karsilastirma.html';
         }
 
@@ -354,16 +275,6 @@
                 html += listeHtmlOlustur(liste.ad, listedekiUrunler, liste.ad);
             });
 
-            /* Hiç favori listesi yoksa liste ekle yönlendirmesi */
-            if (favoriListeleri.length === 0) {
-                html += `
-          <div class="bg-surface-container border border-dashed border-outline-variant rounded-xl p-xl text-center">
-            <span class="material-symbols-outlined text-4xl text-outline mb-sm">folder_open</span>
-            <p class="text-body-md text-on-surface-variant mb-md">Henüz özel liste oluşturmadınız.</p>
-            <button onclick="yeniListeOlustur()" class="text-primary text-label-lg hover:underline">+ Yeni Liste Oluştur</button>
-          </div>`;
-            }
-
             konteyner.innerHTML = html;
 
             /* Navigasyon rozeti */
@@ -387,6 +298,12 @@
            </div>`
                 : urunler.map(urun => urunKartiOlustur(urun)).join('');
 
+            const seciliSayisi = karsilastirmaListesiAl().length;
+            const karsilastirAktif = seciliSayisi >= 3;
+            const karsilastirBtnClass = karsilastirAktif
+                ? 'bg-primary-container text-on-primary-container hover:bg-primary hover:text-on-primary shadow-[0_0_10px_rgba(0,200,83,0.2)] cursor-pointer'
+                : 'bg-surface-container-highest text-on-surface-variant opacity-50 cursor-not-allowed';
+
             return `
         <section class="flex flex-col gap-md">
           <!-- Liste başlık çubuğu -->
@@ -398,11 +315,13 @@
             </div>
             <div class="flex items-center gap-md">
               ${silinebilirHtml}
-              <!-- Listedeki ürünleri karşılaştırmaya gönder -->
-              <button onclick="listeyiKarsilastir('${listeAdi}', tumUrunler)"
-                class="bg-primary-container text-on-primary-container hover:bg-primary hover:text-on-primary transition-all px-md py-sm rounded text-label-lg flex items-center gap-sm shadow-[0_0_10px_rgba(0,200,83,0.2)]">
+              <!-- Seçili 3 ürün olduğunda aktif olur -->
+              <button onclick="listeyiKarsilastir()"
+                ${karsilastirAktif ? '' : 'disabled'}
+                title="${karsilastirAktif ? 'Karşılaştır' : `3 ürün seçin (${seciliSayisi}/3)`}"
+                class="transition-all px-md py-sm rounded text-label-lg flex items-center gap-sm ${karsilastirBtnClass}">
                 <span class="material-symbols-outlined text-sm">compare</span>
-                Tümünü Karşılaştır
+                Karşılaştır${karsilastirAktif ? '' : ` (${seciliSayisi}/3)`}
               </button>
             </div>
           </div>
@@ -418,11 +337,16 @@
             const eskiFiyatHtml = urun.eskiFiyat
                 ? `<span class="text-on-surface-variant line-through text-body-sm">${fiyatFormat(urun.eskiFiyat)}</span>` : '';
 
+            const karsilastirmada = karsilastirmaListesiAl().some(u => u.id === urun.id);
+            const karsilastirBtnClass = karsilastirmada
+                ? 'text-primary bg-primary/10 rounded-lg'
+                : 'text-on-surface-variant group-hover:text-primary';
+
             return `
-        <div class="bg-[#1a1a1a] border border-[#2e2e2e] rounded-xl overflow-hidden hover:scale-[1.02] hover:border-outline-variant transition-all group relative flex flex-col">
+        <div class="bg-[#1a1a1a] border ${karsilastirmada ? 'border-primary/40' : 'border-[#2e2e2e]'} rounded-xl overflow-hidden hover:scale-[1.02] hover:border-outline-variant transition-all group relative flex flex-col">
           <!-- Favoriden Çıkar butonu -->
-          <button onclick="favoridenCikar(${urun.id})" 
-            class="absolute top-sm right-sm p-sm bg-background/80 backdrop-blur-sm rounded-full text-primary hover:text-error transition-colors z-10" 
+          <button onclick="favoridenCikar(${urun.id})"
+            class="absolute top-sm right-sm p-sm bg-background/80 backdrop-blur-sm rounded-full text-primary hover:text-error transition-colors z-10"
             title="Favoriden Çıkar">
             <span class="material-symbols-outlined text-lg" style="font-variation-settings:'FILL' 1;">favorite</span>
           </button>
@@ -440,9 +364,11 @@
                 ${eskiFiyatHtml}
                 <span class="text-headline-lg text-primary font-bold">${fiyatFormat(urun.fiyat)}</span>
               </div>
-              <!-- Karşılaştırmaya ekle butonu -->
-              <button onclick="urununKarsilastirmaToggle(${urun.id})" class="text-on-surface-variant group-hover:text-primary transition-colors p-sm">
-                <span class="material-symbols-outlined">compare_arrows</span>
+              <!-- Karşılaştırmaya ekle/çıkar butonu -->
+              <button onclick="urununKarsilastirmaToggle(${urun.id})"
+                title="${karsilastirmada ? 'Karşılaştırmadan çıkar' : 'Karşılaştırmaya ekle'}"
+                class="transition-colors p-sm ${karsilastirBtnClass}">
+                <span class="material-symbols-outlined" style="${karsilastirmada ? "font-variation-settings:'FILL' 1;" : ''}">compare_arrows</span>
               </button>
             </div>
           </div>
@@ -455,17 +381,13 @@
             const index = liste.findIndex(u => u.id === urunId);
             if (index !== -1) {
                 liste.splice(index, 1);
-                alert('Karşılaştırmadan çıkarıldı.');
             } else {
-                if (liste.length >= 3) { alert('En fazla 3 ürün karşılaştırabilirsiniz!'); return; }
+                if (liste.length >= 3) return;
                 const urun = tumUrunler.find(u => u.id === urunId);
-                if (urun) { liste.push(urun); alert('Karşılaştırmaya eklendi!'); }
+                if (urun) liste.push(urun);
             }
             karsilastirmaListesiKaydet(liste);
-
-            /* Navigasyon rozeti güncelle */
-            const navK = document.getElementById('navKarsilastirmaSayisi');
-            if (navK) { navK.textContent = liste.length; liste.length > 0 ? navK.classList.remove('hidden') : navK.classList.add('hidden'); }
+            sayfayiYenile();
         }
 
         /* =====================================================
