@@ -171,64 +171,13 @@
         function fiyatFormat(fiyat) { return fiyat.toLocaleString('tr-TR') + ' TL'; }
 
         /* =====================================================
-           FAVORİ LİSTELERİ YAPISI
-           localStorage'da "favoriListeleri" anahtarıyla saklanır.
-           Yapı: [ { ad: "Liste Adı", urunIdler: [1, 3, 5] }, ... ]
-           ===================================================== */
-        function favoriListeleriAl() {
-            return JSON.parse(localStorage.getItem('favoriListeleri') || '[]');
-        }
-        function favoriListeleriKaydet(listeler) {
-            localStorage.setItem('favoriListeleri', JSON.stringify(listeler));
-        }
-
-        /* =====================================================
-           ÜRÜNLERİ LİSTEYE EKLE / ÇIKAR
+           ÜRÜNLERİ FAVORİDEN ÇIKAR
            ===================================================== */
 
-        /* Ürünü favorilerden çıkar (tüm listelerden ve ana favoriler listesinden) */
         function favoridenCikar(urunId) {
-            /* Ana favori listesinden çıkar */
             let liste = favoriListesiAl();
             liste = liste.filter(u => u.id !== urunId);
             favoriListesiKaydet(liste);
-
-            /* Tüm listelerden de çıkar */
-            let listeler = favoriListeleriAl();
-            listeler = listeler.map(l => ({
-                ...l,
-                urunIdler: l.urunIdler.filter(id => id !== urunId)
-            }));
-            favoriListeleriKaydet(listeler);
-
-            sayfayiYenile();
-        }
-
-        /* Ürünü belirli bir listeye ekle */
-        function urununListeyiToggle(listeAd, urunId) {
-            let listeler = favoriListeleriAl();
-            const listeIndex = listeler.findIndex(l => l.ad === listeAd);
-            if (listeIndex === -1) return;
-
-            const urunIndex = listeler[listeIndex].urunIdler.indexOf(urunId);
-            if (urunIndex !== -1) {
-                /* Listede varsa çıkar */
-                listeler[listeIndex].urunIdler.splice(urunIndex, 1);
-            } else {
-                /* Listede yoksa ekle */
-                listeler[listeIndex].urunIdler.push(urunId);
-            }
-
-            favoriListeleriKaydet(listeler);
-            sayfayiYenile();
-        }
-
-        /* Listeyi tamamen sil */
-        function listeyiSil(listeAd) {
-            if (!confirm(`"${listeAd}" listesi silinsin mi?`)) return;
-            let listeler = favoriListeleriAl();
-            listeler = listeler.filter(l => l.ad !== listeAd);
-            favoriListeleriKaydet(listeler);
             sayfayiYenile();
         }
 
@@ -246,7 +195,6 @@
 
         function sayfayiYenile() {
             const favoriListesi = favoriListesiAl();
-            const favoriListeleri = favoriListeleriAl();
             const konteyner = document.getElementById('listelerKonteyneri');
             const bosEkran = document.getElementById('bosEkran');
 
@@ -261,21 +209,7 @@
             bosEkran.classList.add('hidden');
             bosEkran.classList.remove('flex');
 
-            /* ===== 1. TÜM FAVORİLER BÖLÜMÜ ===== */
-            let html = '';
-            html += listeHtmlOlustur('Tüm Favorilerim', favoriListesi, null);
-
-            /* ===== 2. KULLANICI OLUŞTURDUĞU LİSTELER ===== */
-            favoriListeleri.forEach(liste => {
-                /* Listedeki ürün objelerini bul */
-                const listedekiUrunler = liste.urunIdler
-                    .map(id => tumUrunler.find(u => u.id === id))
-                    .filter(Boolean);
-
-                html += listeHtmlOlustur(liste.ad, listedekiUrunler, liste.ad);
-            });
-
-            konteyner.innerHTML = html;
+            konteyner.innerHTML = listeHtmlOlustur('Tüm Favorilerim', favoriListesi);
 
             /* Navigasyon rozeti */
             const navK = document.getElementById('navKarsilastirmaSayisi');
@@ -284,13 +218,7 @@
         }
 
         /* Tek bir liste bölümünün HTML'ini oluştur */
-        function listeHtmlOlustur(listeAdi, urunler, silinebilirAd) {
-            const silinebilirHtml = silinebilirAd
-                ? `<button onclick="listeyiSil('${silinebilirAd}')" class="text-error hover:text-error/70 transition-colors text-label-md flex items-center gap-xs">
-             <span class="material-symbols-outlined text-base">delete</span> Listeyi Sil
-           </button>`
-                : '';
-
+        function listeHtmlOlustur(listeAdi, urunler) {
             const urunKartlariHtml = urunler.length === 0
                 ? `<div class="col-span-3 text-center text-on-surface-variant py-lg">
              Bu listede henüz ürün yok.
@@ -314,7 +242,6 @@
               <span class="bg-surface-container-highest text-on-surface-variant px-sm py-xs rounded-full text-label-md ml-sm">${urunler.length} Ürün</span>
             </div>
             <div class="flex items-center gap-md">
-              ${silinebilirHtml}
               <!-- Seçili 3 ürün olduğunda aktif olur -->
               <button onclick="listeyiKarsilastir()"
                 ${karsilastirAktif ? '' : 'disabled'}
